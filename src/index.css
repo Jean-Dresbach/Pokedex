@@ -2,3 +2,40 @@ body,
 #root {
   height: 100vh;
 }
+
+#custom-bg {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+#pokeball-container {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+#pokeball-pattern {
+  background-size: 10%;
+  position: absolute;
+  left: 50%;
+  top: 0px;
+  translate: -50% 0%;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  min-width: 1200px;
+  opacity: 0.1;
+  animation: pan 60s linear infinite;
+  will-change: background-position;
+}
+
+@keyframes pan {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}

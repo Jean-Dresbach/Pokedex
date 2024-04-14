@@ -12,12 +12,28 @@ export function BackGround({ children }: BackGroundProps) {
 
   return (
     <div id="custom-bg">
-      <div id="pokeball-container">
+      <div
+        id="pokeball-container"
+        className={
+          theme === "light"
+            ? "radial-gradient-bgLight"
+            : "radial-gradient-bgDark"
+        }
+      >
         <div
           id="pokeball-pattern"
-          style={{ backgroundImage: `url(${bgLight})` }}
+          style={{
+            backgroundImage: `url(${theme === "light" ? bgLight : ""})`
+          }}
         ></div>
-        <div id="pokeball-gradient-overlay"></div>
+        <div
+          id="pokeball-gradient-overlay"
+          className={
+            theme === "light"
+              ? "gradient-overlay-bgLight"
+              : "gradient-overlay-bgDark"
+          }
+        ></div>
       </div>
       {children}
     </div>

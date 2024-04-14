@@ -3,6 +3,22 @@ body,
   height: 100vh;
 }
 
+.radial-gradient-bgLight {
+  background: radial-gradient(#ffffff, #d3d3d3);
+}
+
+.gradient-overlay-bgLight {
+  background: radial-gradient(circle, transparent 70%, #ffffff);
+}
+
+.radial-gradient-bgDark {
+  background: radial-gradient(#ffffff, #d3d3d3);
+}
+
+.gradient-overlay-bgDark {
+  background: radial-gradient(circle, transparent 70%, #ffffff);
+}
+
 #custom-bg {
   width: 100%;
   height: 100%;
@@ -29,6 +45,16 @@ body,
   opacity: 0.1;
   animation: pan 60s linear infinite;
   will-change: background-position;
+}
+
+#pokeball-gradient-overlay {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  opacity: 0.9;
+  z-index: 2;
 }
 
 @keyframes pan {

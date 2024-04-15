@@ -1,17 +1,22 @@
-import { CssBaseline, ThemeProvider } from "@mui/material"
+import { CssBaseline, ThemeProvider, createTheme } from "@mui/material"
 
 import { useAppSelector } from "./redux"
-import { dark, light } from "./themes"
 import { BackGround } from "./components/BackGround"
 import { Router } from "./routes/Router"
 
 export function Root() {
-  const currentTheme = useAppSelector((state) =>
-    state.theme === "light" ? light : dark
-  )
+  const currentTheme = useAppSelector((state) => state.theme) as
+    | "light"
+    | "dark"
+
+  const theme = createTheme({
+    palette: {
+      mode: currentTheme
+    }
+  })
 
   return (
-    <ThemeProvider theme={currentTheme}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <BackGround>
         <Router />

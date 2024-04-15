@@ -1,62 +1,55 @@
-import { SyntheticEvent, useState } from "react"
-import { Outlet, useLocation, useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
+import { Box, Button, Typography } from "@mui/material"
 import {
-  BottomNavigation,
-  BottomNavigationAction,
-  Container,
-  Paper,
-  useTheme
-} from "@mui/material"
-import { Favorite, CatchingPokemon } from "@mui/icons-material"
+  EastRounded,
+  WestRounded,
+  FavoriteBorder,
+  CatchingPokemon
+} from "@mui/icons-material"
 
 export function Nav() {
-  const theme = useTheme()
+  const currentPage = useLocation().pathname
   const navigate = useNavigate()
-
-  const location = useLocation().pathname
-  const initialState = location === "/" ? "/" : location.split("/")[1]
-  const [value, setValue] = useState(initialState)
-
-  const handleChange = (_: SyntheticEvent, newValue: string) => {
-    setValue(newValue)
-
-    navigate(newValue)
-  }
-
   return (
-    <Container maxWidth="md" sx={{ height: "100%", p: "16px !important" }}>
-      <Outlet />
+    <Box
+      component="nav"
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        p: 3
+      }}
+    >
+      {currentPage === "/" ? (
+        <>
+          <Typography variant="h5" component="h2">
+            Pokedex
+          </Typography>
 
-      <Paper
-        sx={{
-          position: "fixed",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          maxWidth: "900px",
-          margin: "auto",
-          borderTop: ` 1px solid ${theme.palette.grey[400]}`,
-          marginBottom: "-10px",
-          paddingBottom: "10px",
-          zIndex: 100
-        }}
-        elevation={0}
-      >
-        <BottomNavigation value={value} onChange={handleChange}>
-          <BottomNavigationAction
+          <Button
             color="error"
-            label="Pokedex"
-            value={"/"}
-            icon={<CatchingPokemon />}
-          />
+            sx={{ borderRadius: "100vw" }}
+            onClick={() => navigate("/favorites")}
+          >
+            <FavoriteBorder color="error" />
+            <EastRounded />
+          </Button>
+        </>
+      ) : (
+        <>
+          <Button
+            color="error"
+            sx={{ borderRadius: "100vw" }}
+            onClick={() => navigate("/")}
+          >
+            <WestRounded />
+            <CatchingPokemon color="error" />
+          </Button>
 
-          <BottomNavigationAction
-            label="Favoritos"
-            value={"favorites"}
-            icon={<Favorite />}
-          />
-        </BottomNavigation>
-      </Paper>
-    </Container>
+          <Typography variant="h5" component="h2">
+            Favoritos
+          </Typography>
+        </>
+      )}
+    </Box>
   )
 }

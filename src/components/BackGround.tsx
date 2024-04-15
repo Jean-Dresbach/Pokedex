@@ -2,6 +2,7 @@ import { ReactNode } from "react"
 import { useAppSelector } from "../redux"
 
 import bgLight from "../assets/pokeball-bg-light-icon.svg"
+import bgDark from "../assets/pokeball-bg-dark-icon.svg"
 
 interface BackGroundProps {
   children?: ReactNode
@@ -23,7 +24,7 @@ export function BackGround({ children }: BackGroundProps) {
         <div
           id="pokeball-pattern"
           style={{
-            backgroundImage: `url(${theme === "light" ? bgLight : ""})`
+            backgroundImage: `url(${theme === "light" ? bgLight : bgDark})`
           }}
         ></div>
         <div
@@ -34,8 +35,8 @@ export function BackGround({ children }: BackGroundProps) {
               : "gradient-overlay-bgDark"
           }
         ></div>
+        {children}
       </div>
-      {children}
     </div>
   )
 }

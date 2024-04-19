@@ -2,10 +2,10 @@ import { Outlet } from "react-router-dom"
 import { Box, Container, Typography, useTheme } from "@mui/material"
 import { SearchRounded } from "@mui/icons-material"
 
-import pokeball from "../assets/pokeball.png"
-import { useAppSelector } from "../redux"
+import { useAppSelector } from "../../redux"
 import { ToggleThemeButton } from "./ToggleThemeButton"
 import { Nav } from "./Nav"
+import pokeball from "../../assets/pokeball.png"
 
 export function Header() {
   const themeMui = useTheme()
@@ -34,6 +34,8 @@ export function Header() {
         sx={{
           padding: "0 !important",
           backgroundColor: themeMui.palette.background.default,
+          display: "flex",
+          flexDirection: "column",
           height: "100%"
         }}
       >
@@ -111,7 +113,9 @@ export function Header() {
 
         <Nav />
 
-        <Outlet />
+        <Box sx={{ flexGrow: 1 }}>
+          <Outlet />
+        </Box>
       </Container>
     </Box>
   )

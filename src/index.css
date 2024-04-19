@@ -52,6 +52,10 @@ body,
   z-index: 2;
 }
 
+.pagination div {
+  padding: 0 !important;
+}
+
 @keyframes rotate {
   0% {
     transform: rotate(0deg);

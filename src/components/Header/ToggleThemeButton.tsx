@@ -1,7 +1,7 @@
 import { DarkMode, LightMode } from "@mui/icons-material"
 import { IconButton } from "@mui/material"
 
-import { toggleTheme, useAppDispatch, useAppSelector } from "../redux"
+import { toggleTheme, useAppDispatch, useAppSelector } from "../../redux"
 
 export function ToggleThemeButton() {
   const theme = useAppSelector((state) => state.theme)

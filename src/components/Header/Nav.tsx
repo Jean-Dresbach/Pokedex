@@ -16,7 +16,8 @@ export function Nav() {
       sx={{
         display: "flex",
         justifyContent: "space-between",
-        p: 3
+        px: 3,
+        pt: 6
       }}
     >
       {currentPage === "/" ? (

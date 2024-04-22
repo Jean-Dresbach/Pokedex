@@ -52,8 +52,12 @@ body,
   z-index: 2;
 }
 
+.pagination {
+  padding: 0 8px !important;
+}
+
 .pagination div {
-  padding: 0 !important;
+  padding: 8px 24px 8px 8px !important;
 }
 
 @keyframes rotate {

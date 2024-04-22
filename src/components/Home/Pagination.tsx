@@ -1,8 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
 import {
   Box,
-  FormControl,
-  FormHelperText,
   IconButton,
   MenuItem,
   Select,
@@ -46,9 +44,8 @@ export function Pagination({
   }
 
   const handleSelectPerPage = (e: SelectChangeEvent) => {
-    console.log(e.target.value)
 
-    setLimit(e.target.value as PerPage)
+    setLimit(Number(e.target.value) as PerPage)
   }
 
   const handleSetPrevURL = () => {
@@ -63,8 +60,7 @@ export function Pagination({
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
       <Box sx={{ display: "flex", gap: 1 }}>
-        <FormControl>
-          <Select
+      <Select
             sx={{
               padding: 1,
               maxHeight: "150px",
@@ -78,37 +74,25 @@ export function Pagination({
           >
             {pages.map((_, index) => (
               <MenuItem key={index + 1} value={index + 1}>
-                {index + 1}
+                Página {index + 1}
               </MenuItem>
             ))}
           </Select>
-          <FormHelperText
-            sx={{ textAlign: "center", fontSize: "10px", m: 0, mt: 1 }}
-          >
-            Escolha a página
-          </FormHelperText>
-        </FormControl>
-        <FormControl>
-          <Select
+        <Select
             sx={{ padding: 1, borderRadius: "100vw", pl: 2 }}
-            value={limit}
+            value={limit.toString()}
             onChange={handleSelectPerPage}
             className="pagination"
           >
+            <MenuItem disabled>Pokemons por <br /> página</MenuItem>
             <MenuItem value="6">6</MenuItem>
             <MenuItem value="10">10</MenuItem>
             <MenuItem value="20">20</MenuItem>
             <MenuItem value="50">50</MenuItem>
           </Select>
-          <FormHelperText
-            sx={{ textAlign: "center", fontSize: "10px", m: 0, mt: 1 }}
-          >
-            Pokemons por página
-          </FormHelperText>
-        </FormControl>
       </Box>
 
-      <Box sx={{ minWidth: "80px" }}>
+      <Box sx={{ minWidth: "80px", display: "flex", alignItems: "center" }}>
         <IconButton disabled={!prevURL} onClick={handleSetPrevURL}>
           <ArrowBackRounded />
         </IconButton>

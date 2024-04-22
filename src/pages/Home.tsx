@@ -1,4 +1,4 @@
-import { Box, useTheme } from "@mui/material"
+import { Box, Divider, useTheme } from "@mui/material"
 import { useEffect, useState } from "react"
 
 import { fetchPokemonsList } from "../services/api"
@@ -9,7 +9,7 @@ import { FetchPokemons } from "../types/pokemonAPIResponse"
 export function Home() {
   const theme = useTheme()
   const [result, setResult] = useState<FetchPokemons>({} as FetchPokemons)
-  const [limit, setLimit] = useState<PerPage>("6")
+  const [limit, setLimit] = useState<PerPage>(6)
   const [url, setURL] = useState<string | null>(null)
   const [currentPage, setCurrentPage] = useState("1")
 
@@ -34,6 +34,8 @@ export function Home() {
         backgroundColor: theme.palette.background.default
       }}
     >
+      <Divider sx={{mb: 3}}/>
+
       <Pagination
         currentPage={currentPage}
         count={result.count}
@@ -44,6 +46,8 @@ export function Home() {
         setLimit={setLimit}
         setCurrentPage={setCurrentPage}
       />
+
+      <Divider sx={{my: 3}}/>
     </Box>
   )
 }

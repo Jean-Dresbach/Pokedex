@@ -9,7 +9,7 @@ import pokeball from "../../assets/pokeball.png"
 
 export function Header() {
   const themeMui = useTheme()
-  const theme = useAppSelector((state) => state.theme)
+  const theme = useAppSelector(state => state.theme)
 
   return (
     <Box
@@ -27,8 +27,7 @@ export function Header() {
         "&::-webkit-scrollbar-thumb": {
           backgroundColor: themeMui.palette.error.light
         }
-      }}
-    >
+      }}>
       <Container
         maxWidth="md"
         sx={{
@@ -37,8 +36,7 @@ export function Header() {
           display: "flex",
           flexDirection: "column",
           height: "100%"
-        }}
-      >
+        }}>
         <Box
           component="header"
           sx={{
@@ -53,13 +51,15 @@ export function Header() {
                 : themeMui.palette.grey[900],
             p: 3,
             py: 5
-          }}
-        >
+          }}>
           <Typography
-            variant="h4"
             component="h1"
-            sx={{ fontWeight: 500, zIndex: 3, mb: 3 }}
-          >
+            sx={{
+              fontWeight: 500,
+              zIndex: 3,
+              mb: 3,
+              fontSize: "clamp(20px, 5vw, 30px)"
+            }}>
             Qual pokemon
             <br />
             você esta procurando?
@@ -80,8 +80,7 @@ export function Header() {
             }}
             style={{
               backgroundColor: theme === "light" ? "#efefef" : "rgba(0,0,0,0.2)"
-            }}
-          >
+            }}>
             <SearchRounded />
             <input
               type="text"

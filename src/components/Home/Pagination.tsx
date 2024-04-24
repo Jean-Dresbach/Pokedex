@@ -1,102 +1,115 @@
-import { Dispatch, SetStateAction } from "react"
+import { useEffect } from "react"
 import {
   Box,
   IconButton,
   MenuItem,
   Select,
-  SelectChangeEvent
+  SelectChangeEvent,
+  useTheme
 } from "@mui/material"
 import { ArrowBackRounded, ArrowForwardRounded } from "@mui/icons-material"
+
 import { PerPage } from "../../types/pagitation"
+import {
+  useAppSelector,
+  useAppDispatch,
+  setTotalPages,
+  setCurrentPage,
+  setPerPage
+} from "../../redux"
 
-interface PaginationProps {
-  currentPage: string
-  count: number
-  limit: PerPage
-  prevURL: string | null
-  nextURL: string | null
-  setURL: Dispatch<SetStateAction<string | null>>
-  setLimit: Dispatch<SetStateAction<PerPage>>
-  setCurrentPage: Dispatch<SetStateAction<string>>
-}
+export function Pagination() {
+  const theme = useTheme()
 
-export function Pagination({
-  currentPage,
-  count,
-  limit,
-  nextURL,
-  prevURL,
-  setURL,
-  setLimit,
-  setCurrentPage
-}: PaginationProps) {
-  // const [pages, setPages] = useState<number[]>(
-  //   Array.from({
-  //     length: Math.ceil(count / limit)
-  //   })
-  // )
-  const pages: number[] = Array.from({
-    length: Math.ceil(count / Number(limit))
-  })
+  const dispatch = useAppDispatch()
+  const pagination = useAppSelector(state => state.pagination)
+  const filter = useAppSelector(state => state.filter)
+
+  useEffect(() => {
+    const totalPages = Math.ceil(filter.generation.count / pagination.perPage)
+
+    dispatch(setTotalPages(totalPages))
+  }, [dispatch, filter.generation.count, pagination.perPage])
 
   const handleSelectPage = (e: SelectChangeEvent) => {
-    setCurrentPage(e.target.value)
+    const value = Number(e.target.value)
+
+    dispatch(setCurrentPage(value))
   }
 
   const handleSelectPerPage = (e: SelectChangeEvent) => {
+    const value = Number(e.target.value)
 
-    setLimit(Number(e.target.value) as PerPage)
+    dispatch(setPerPage(value as PerPage))
   }
 
-  const handleSetPrevURL = () => {
-    setCurrentPage((prev) => (Number(prev) - 1).toString())
-    setURL(prevURL)
-  }
-  const handleSetNextURL = () => {
-    setCurrentPage((prev) => (Number(prev) + 1).toString())
-    setURL(nextURL)
-  }
+  const handlePrev = () => dispatch(setCurrentPage(pagination.currentPage - 1))
+  const handleNext = () => dispatch(setCurrentPage(pagination.currentPage + 1))
 
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
       <Box sx={{ display: "flex", gap: 1 }}>
-      <Select
-            sx={{
-              padding: 1,
-              maxHeight: "150px",
-              borderRadius: "100vw",
-              pl: 2
-            }}
-            value={currentPage}
-            onChange={handleSelectPage}
-            className="pagination"
-            MenuProps={{ PaperProps: { sx: { ...{ maxHeight: 150 } } } }}
-          >
-            {pages.map((_, index) => (
-              <MenuItem key={index + 1} value={index + 1}>
-                Página {index + 1}
-              </MenuItem>
-            ))}
-          </Select>
         <Select
-            sx={{ padding: 1, borderRadius: "100vw", pl: 2 }}
-            value={limit.toString()}
-            onChange={handleSelectPerPage}
-            className="pagination"
-          >
-            <MenuItem disabled>Pokemons por <br /> página</MenuItem>
-            <MenuItem value="6">6</MenuItem>
-            <MenuItem value="10">10</MenuItem>
-            <MenuItem value="20">20</MenuItem>
-            <MenuItem value="50">50</MenuItem>
-          </Select>
+          sx={{
+            padding: 1,
+            maxHeight: "150px",
+            borderRadius: "100vw",
+            pl: 2
+          }}
+          value={pagination.currentPage.toString()}
+          onChange={handleSelectPage}
+          className="pagination"
+          MenuProps={{
+            PaperProps: {
+              sx: {
+                ...{ maxHeight: 250 },
+                "&::-webkit-scrollbar": {
+                  width: "8px"
+                },
+                "&::-webkit-scrollbar-track": {
+                  backgroundColor: theme.palette.text.secondary
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: theme.palette.error.light
+                }
+              }
+            }
+          }}>
+          <MenuItem disabled>Páginas</MenuItem>
+          {Array.from({ length: pagination.totalOfPage }, (_, index) => (
+            <MenuItem key={index + 1} value={index + 1}>
+              {index + 1}
+            </MenuItem>
+          ))}
+        </Select>
+        <Select
+          sx={{ padding: 1, borderRadius: "100vw", pl: 2 }}
+          value={pagination.perPage.toString()}
+          onChange={handleSelectPerPage}
+          className="pagination"
+          MenuProps={{ PaperProps: { sx: { ...{ maxHeight: 250 } } } }}>
+          <MenuItem disabled>
+            Pokemons por <br /> página
+          </MenuItem>
+          <MenuItem value="6">6</MenuItem>
+          <MenuItem value="10">10</MenuItem>
+          <MenuItem value="20">20</MenuItem>
+          <MenuItem value="50">50</MenuItem>
+        </Select>
       </Box>
 
       <Box sx={{ minWidth: "80px", display: "flex", alignItems: "center" }}>
-        <IconButton disabled={!prevURL} onClick={handleSetPrevURL}>
+        <IconButton
+          disabled={pagination.currentPage === 1}
+          onClick={handlePrev}>
           <ArrowBackRounded />
         </IconButton>
-        <IconButton disabled={!nextURL} onClick={handleSetNextURL}>
+        <IconButton
+          disabled={
+            pagination.currentPage ===
+            Math.ceil(filter.generation.count / pagination.perPage)
+          }
+          onClick={handleNext}>
           <ArrowForwardRounded />
         </IconButton>
       </Box>

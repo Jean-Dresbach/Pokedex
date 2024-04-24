@@ -5,11 +5,13 @@ import storage from "redux-persist/lib/storage"
 import themeSlice from "./slices/themeSlice"
 import loadingSlice from "./slices/loadingSlice"
 import paginationSlice from "./slices/paginationSlice"
+import filterSlice from "./slices/filterSlice"
 
 const rootReducer = combineReducers({
   theme: themeSlice,
   loading: loadingSlice,
-  pagination: paginationSlice
+  pagination: paginationSlice,
+  filter: filterSlice
 })
 
 export const persistedReducer = persistReducer(

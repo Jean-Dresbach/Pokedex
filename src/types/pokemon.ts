@@ -29,6 +29,7 @@ export type Type =
   | "dragon"
   | "dark"
   | "fairy"
+  | "psychic"
 
 export interface FetchPokemons {
   count: number

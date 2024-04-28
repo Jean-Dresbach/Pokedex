@@ -6,6 +6,28 @@ interface GenerationInfo {
   offset: number
 }
 
+export const pokemonTypesData: Type[] = [
+  "psychic",
+  "ghost",
+  "flying",
+  "dark",
+  "fairy",
+  "dragon",
+  "poison",
+  "fighting",
+  "steel",
+  "ice",
+  "bug",
+  "rock",
+  "ground",
+  "electric",
+  "water",
+  "fire",
+  "grass",
+  "normal",
+  "all"
+]
+
 export const generationsData: GenerationInfo[] = [
   {
     name: "All",

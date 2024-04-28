@@ -1,6 +1,7 @@
 import { SyntheticEvent, useState } from "react"
 import { TuneRounded } from "@mui/icons-material"
 import {
+  Box,
   Container,
   Divider,
   Fab,
@@ -9,11 +10,19 @@ import {
   Slide,
   Tab,
   Tabs,
-  Tooltip
+  Tooltip,
+  Typography
 } from "@mui/material"
-import { generationsData } from "../../types/filter"
-import { Generations } from "../../types/pokemon"
-import { setGeneration, useAppDispatch, useAppSelector } from "../../redux"
+
+import { generationsData, pokemonTypesData } from "../../types/filter"
+import { Generations, Type } from "../../types/pokemon"
+import {
+  setGeneration,
+  setType,
+  useAppDispatch,
+  useAppSelector
+} from "../../redux"
+import * as TypeIcons from "../../assets/pokemomTypeIcons"
 
 export function Filter() {
   const dispatch = useAppDispatch()
@@ -30,6 +39,9 @@ export function Filter() {
     value: Generations
   ) => {
     dispatch(setGeneration(value))
+  }
+  const handleTypeChange = (_: SyntheticEvent<Element, Event>, value: Type) => {
+    dispatch(setType(value))
   }
 
   return (
@@ -62,7 +74,7 @@ export function Filter() {
               position: "absolute",
               inset: 0,
               maxWidth: "900px",
-              height: "50vh",
+              height: "max-content",
               margin: "auto",
               borderRadius: "32px 32px 0 0",
               marginBottom: 0,
@@ -82,6 +94,7 @@ export function Filter() {
               allowScrollButtonsMobile>
               {generationsData.map(genDta => (
                 <Tab
+                  sx={{ width: 100 }}
                   key={genDta.name}
                   value={genDta.name}
                   label={genDta.name}
@@ -92,6 +105,32 @@ export function Filter() {
             <Divider sx={{ my: 2, fontSize: 25 }} textAlign="right">
               TIPO
             </Divider>
+
+            <Tabs
+              value={filter.type}
+              variant="scrollable"
+              onChange={handleTypeChange}
+              sx={{ marginBottom: 2 }}
+              scrollButtons
+              allowScrollButtonsMobile>
+              {pokemonTypesData.map(t => (
+                <Tab
+                  key={t}
+                  value={t}
+                  label={
+                    <Box sx={{ display: "flex", gap: 1 }}>
+                      <Typography>{t}</Typography>
+                      {t !== "all" && (
+                        <img
+                          style={{ width: "25px" }}
+                          src={TypeIcons[t].default}
+                        />
+                      )}
+                    </Box>
+                  }
+                />
+              ))}
+            </Tabs>
           </Paper>
         </Slide>
       </Modal>

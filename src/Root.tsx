@@ -1,4 +1,9 @@
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material"
+import {
+  CssBaseline,
+  ThemeProvider,
+  createTheme,
+  useTheme
+} from "@mui/material"
 
 import { useAppSelector } from "./redux"
 import { BackGround } from "./components/BackGround"
@@ -7,10 +12,14 @@ import { LoadingBackdrop } from "./components/LoadingBackdrop"
 
 export function Root() {
   const currentTheme = useAppSelector(state => state.theme) as "light" | "dark"
+  const themeMui = useTheme()
 
   const theme = createTheme({
     palette: {
-      mode: currentTheme
+      mode: currentTheme,
+      primary: {
+        main: themeMui.palette.error.main
+      }
     }
   })
 

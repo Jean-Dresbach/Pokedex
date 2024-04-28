@@ -1,6 +1,7 @@
 import { Box, Divider, useTheme } from "@mui/material"
 
 import { Pagination } from "../components/Home/Pagination"
+import { Filter } from "../components/Home/Filter"
 
 export function Home() {
   const theme = useTheme()
@@ -19,6 +20,8 @@ export function Home() {
       <Pagination />
 
       <Divider sx={{ my: 3 }} />
+
+      <Filter />
     </Box>
   )
 }

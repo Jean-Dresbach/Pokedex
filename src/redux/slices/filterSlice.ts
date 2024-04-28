@@ -1,11 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
-import { Filter, GenerationsData } from "../../types/filter"
+import { Filter, generationsData } from "../../types/filter"
 import { Type, Generations } from "../../types/pokemon"
 
 const initialState: Filter = {
   type: "all",
-  generation: GenerationsData["All"]
+  generation: generationsData[0]
 }
 
 export const filterSlice = createSlice({
@@ -16,7 +16,10 @@ export const filterSlice = createSlice({
       return { ...state, type: action.payload }
     },
     setGeneration(state, action: PayloadAction<Generations>) {
-      return { ...state, generation: GenerationsData[action.payload] }
+      const index = generationsData.findIndex(
+        genDta => genDta.name === action.payload
+      )
+      return { ...state, generation: generationsData[index] }
     }
   }
 })

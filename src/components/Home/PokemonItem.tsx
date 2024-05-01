@@ -6,6 +6,7 @@ import { getTypeIcon } from "../../assets/pokemomTypeIcons"
 import { useEffect, useState } from "react"
 import { fetchPokemonData } from "../../services/api"
 import { useAppSelector } from "../../redux"
+import { LoadingPokemonCard } from "./LoadingPokemonCard"
 
 interface PokemonItemProps {
   url: string
@@ -45,18 +46,7 @@ export function PokemonItem({ url }: PokemonItemProps) {
 
   return (
     <>
-      {!pokemonData && (
-        <Card
-          sx={{
-            width: "100%",
-            height: 140,
-            borderRadius: 6,
-            display: "flex",
-            flexDirection: "column"
-          }}>
-          <Skeleton variant="text" animation="wave" sx={{ fontSize: "1rem" }} />
-        </Card>
-      )}
+      {!pokemonData && <LoadingPokemonCard />}
 
       {pokemonData && (
         <Box

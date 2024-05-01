@@ -24,6 +24,7 @@ import {
   useAppSelector
 } from "../../redux"
 import { getTypeIcon } from "../../assets/pokemomTypeIcons"
+import { GenElement } from "./GenElement"
 
 export function Filter() {
   const dispatch = useAppDispatch()
@@ -98,10 +99,17 @@ export function Filter() {
               allowScrollButtonsMobile>
               {generationsData.map(genDta => (
                 <Tab
-                  sx={{ width: 100 }}
+                  sx={{ width: 185 }}
                   key={genDta.name}
                   value={genDta.name}
-                  label={genDta.name}
+                  label={
+                    <GenElement
+                      grass={genDta.initialsImg.grass}
+                      fire={genDta.initialsImg.fire}
+                      water={genDta.initialsImg.water}
+                      label={genDta.name}
+                    />
+                  }
                 />
               ))}
             </Tabs>

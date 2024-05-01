@@ -9,7 +9,7 @@ interface BackGroundProps {
 }
 
 export function BackGround({ children }: BackGroundProps) {
-  const theme = useAppSelector((state) => state.theme)
+  const theme = useAppSelector(state => state.theme)
 
   return (
     <div id="custom-bg">
@@ -19,22 +19,19 @@ export function BackGround({ children }: BackGroundProps) {
           theme === "light"
             ? "radial-gradient-bgLight"
             : "radial-gradient-bgDark"
-        }
-      >
+        }>
         <div
           id="pokeball-pattern"
           style={{
             backgroundImage: `url(${theme === "light" ? bgLight : bgDark})`
-          }}
-        ></div>
+          }}></div>
         <div
           id="pokeball-gradient-overlay"
           className={
             theme === "light"
               ? "gradient-overlay-bgLight"
               : "gradient-overlay-bgDark"
-          }
-        ></div>
+          }></div>
         {children}
       </div>
     </div>

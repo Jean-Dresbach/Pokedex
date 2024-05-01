@@ -88,6 +88,7 @@ export function PokemonItem({ url }: PokemonItemProps) {
               }}>
               {pokemonData?.types.map(t => (
                 <Box
+                  key={t.type.name}
                   sx={{
                     display: "flex",
                     alignItems: "center",

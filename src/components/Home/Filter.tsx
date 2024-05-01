@@ -17,6 +17,7 @@ import {
 import { generationsData, pokemonTypesData } from "../../types/filter"
 import { Generations, Type, typeColor } from "../../types/pokemon"
 import {
+  setCurrentPage,
   setGeneration,
   setType,
   useAppDispatch,
@@ -39,9 +40,11 @@ export function Filter() {
     value: Generations
   ) => {
     dispatch(setGeneration(value))
+    dispatch(setCurrentPage(1))
   }
   const handleTypeChange = (_: SyntheticEvent<Element, Event>, value: Type) => {
     dispatch(setType(value))
+    dispatch(setCurrentPage(1))
   }
 
   return (

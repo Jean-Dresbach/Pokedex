@@ -1,27 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 
 import { toggleLoading } from "./loadingSlice"
-import { Pokemon } from "../../types/pokemon"
+import { NamedAPIResource } from "../../types/pokemon"
 import { fetchPokemonsList } from "../../services/api"
-import { IPagination } from "../../types/pagitation"
 import { Filter } from "../../types/filter"
-
-interface IListPokemons {
-  pagination: IPagination
-  filter: Filter
-}
 
 export const listPokemons = createAsyncThunk(
   "pokemons/list",
-  async (data: IListPokemons, { dispatch }) => {
-    const endPoint = `/pokemon?offset=${
-      (data.filter.generation.offset + (data.pagination.currentPage - 1)) *
-      data.pagination.perPage
-    }&limit=${data.pagination.perPage}`
-
+  async (filter: Filter, { dispatch }) => {
     dispatch(toggleLoading())
 
-    const result = await fetchPokemonsList(endPoint)
+    const result = await fetchPokemonsList(filter)
 
     dispatch(toggleLoading())
 
@@ -29,13 +18,17 @@ export const listPokemons = createAsyncThunk(
   }
 )
 
-const initialState: Pokemon[] = []
+const initialState: NamedAPIResource[] = []
 
 export const pokemonsSlice = createSlice({
   name: "pokemons",
   initialState,
-  reducers: {}
+  reducers: {},
+  extraReducers(builder) {
+    builder.addCase(listPokemons.fulfilled, (_, action) => {
+      return action.payload
+    })
+  }
 })
-// fazer isto no async thunk reducer
 
 export default pokemonsSlice.reducer

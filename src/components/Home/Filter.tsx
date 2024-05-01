@@ -15,14 +15,14 @@ import {
 } from "@mui/material"
 
 import { generationsData, pokemonTypesData } from "../../types/filter"
-import { Generations, Type } from "../../types/pokemon"
+import { Generations, Type, typeColor } from "../../types/pokemon"
 import {
   setGeneration,
   setType,
   useAppDispatch,
   useAppSelector
 } from "../../redux"
-import * as TypeIcons from "../../assets/pokemomTypeIcons"
+import { getTypeIcon } from "../../assets/pokemomTypeIcons"
 
 export function Filter() {
   const dispatch = useAppDispatch()
@@ -50,6 +50,7 @@ export function Filter() {
         maxWidth="md"
         sx={{
           position: "fixed",
+          zIndex: 9999,
           bottom: 0,
           left: 0,
           right: 0,
@@ -120,12 +121,8 @@ export function Filter() {
                   label={
                     <Box sx={{ display: "flex", gap: 1 }}>
                       <Typography>{t}</Typography>
-                      {t !== "all" && (
-                        <img
-                          style={{ width: "25px" }}
-                          src={TypeIcons[t].default}
-                        />
-                      )}
+                      {t !== "all" &&
+                        getTypeIcon(t)({ color: typeColor[t], size: "25px" })}
                     </Box>
                   }
                 />

@@ -1,10 +1,17 @@
+import { useEffect } from "react"
 import { Box, Divider, useTheme } from "@mui/material"
 
-import { Pagination } from "../components/Home/Pagination"
-import { Filter } from "../components/Home/Filter"
+import { Filter, Pagination, PokemonsList } from "../components/Home"
+import { useAppDispatch, listPokemons, useAppSelector } from "../redux"
 
 export function Home() {
+  const dispatch = useAppDispatch()
+  const filter = useAppSelector(state => state.filter)
   const theme = useTheme()
+
+  useEffect(() => {
+    dispatch(listPokemons(filter))
+  }, [dispatch, filter])
 
   return (
     <Box
@@ -20,6 +27,14 @@ export function Home() {
       <Pagination />
 
       <Divider sx={{ my: 3 }} />
+
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center"
+        }}>
+        <PokemonsList />
+      </Box>
 
       <Filter />
     </Box>

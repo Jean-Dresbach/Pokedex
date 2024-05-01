@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Outlet } from "react-router-dom"
 import { Box, Container, Typography, useTheme } from "@mui/material"
 import { SearchRounded } from "@mui/icons-material"
@@ -11,31 +12,42 @@ export function Header() {
   const themeMui = useTheme()
   const theme = useAppSelector(state => state.theme)
 
+  const [searchColor, setSearchColor] = useState("transparent")
+
+  const handleFocus = () => {
+    setSearchColor(themeMui.palette.primary.main)
+  }
+
+  const handleBlur = () => {
+    setSearchColor("transparent")
+  }
+
   return (
     <Box
       sx={{
         position: "absolute",
-        overflow: "auto",
         inset: 0,
-        zIndex: 3,
-        "&::-webkit-scrollbar": {
-          width: "8px"
-        },
-        "&::-webkit-scrollbar-track": {
-          backgroundColor: themeMui.palette.text.secondary
-        },
-        "&::-webkit-scrollbar-thumb": {
-          backgroundColor: themeMui.palette.error.light
-        }
+        zIndex: 3
       }}>
       <Container
         maxWidth="md"
         sx={{
           padding: "0 !important",
+          overflow: "hidden",
+          overflowY: "auto",
           backgroundColor: themeMui.palette.background.default,
           display: "flex",
           flexDirection: "column",
-          height: "100%"
+          height: "100%",
+          "&::-webkit-scrollbar": {
+            width: "8px"
+          },
+          "&::-webkit-scrollbar-track": {
+            backgroundColor: themeMui.palette.text.secondary
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: themeMui.palette.error.light
+          }
         }}>
         <Box
           component="header"
@@ -43,7 +55,7 @@ export function Header() {
             position: "relative",
             display: "flex",
             flexDirection: "column",
-            overflow: "hidden",
+            maxHeight: "max-content",
             borderRadius: "0 0 32px 32px",
             backgroundColor:
               theme === "light"
@@ -76,14 +88,15 @@ export function Header() {
               borderRadius: 100,
               maxWidth: "500px",
               padding: "8px 16px",
-              zIndex: 3
-            }}
-            style={{
+              border: `2px solid ${searchColor}`,
+              zIndex: 3,
               backgroundColor: theme === "light" ? "#efefef" : "rgba(0,0,0,0.2)"
             }}>
             <SearchRounded />
             <input
               type="text"
+              onClick={handleFocus}
+              onBlur={handleBlur}
               placeholder="Pesquise por nome ou id..."
               style={{
                 outline: "none",
@@ -100,12 +113,12 @@ export function Header() {
           <img
             src={pokeball}
             style={{
-              height: "300px",
-              width: "300px",
+              height: "250px",
+              width: "250px",
               opacity: 0.3,
               position: "absolute",
-              top: "-105px",
-              right: "-114px"
+              top: "-79px",
+              right: "-89px"
             }}
           />
         </Box>

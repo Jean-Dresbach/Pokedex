@@ -11,7 +11,6 @@ export type Generations =
   | "Gen-IX"
 
 export type Type =
-  | "all"
   | "normal"
   | "fighting"
   | "flying"
@@ -30,6 +29,27 @@ export type Type =
   | "dark"
   | "fairy"
   | "psychic"
+
+export const typeColor = {
+  psychic: "#f9757a",
+  ghost: "#5d52ac",
+  flying: "#92aade",
+  dark: "#5a5366",
+  fairy: "#ec8fe6",
+  dragon: "#096dc4",
+  poison: "#ab6ac8",
+  fighting: "#d3425f",
+  steel: "#5a8ea1",
+  ice: "#76d1c1",
+  bug: "#95bd42",
+  rock: "#c7b78b",
+  ground: "#d97746",
+  electric: "#f3d23b",
+  water: "#539ddf",
+  fire: "#ff9c54",
+  grass: "#63bb5b",
+  normal: "#9099a1"
+}
 
 export interface FetchPokemons {
   count: number
@@ -96,14 +116,12 @@ export interface PokemonMoveVersion {
 }
 
 export interface PokemonSprites {
-  front_default: string
-  front_shiny: string
-  front_female: string | null
-  front_shiny_female: string | null
-  back_default: string
-  back_shiny: string
-  back_female: string | null
-  back_shiny_female: string | null
+  other: {
+    "official-artwork": {
+      front_default: string
+      front_shiny: string
+    }
+  }
 }
 
 export interface PokemonStat {

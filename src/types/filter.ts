@@ -6,7 +6,9 @@ interface GenerationInfo {
   offset: number
 }
 
-export const pokemonTypesData: Type[] = [
+type TypeWithAll = Type | "all"
+
+export const pokemonTypesData: TypeWithAll[] = [
   "psychic",
   "ghost",
   "flying",
@@ -83,5 +85,5 @@ export const generationsData: GenerationInfo[] = [
 
 export interface Filter {
   generation: GenerationInfo
-  type: Type
+  type: TypeWithAll
 }

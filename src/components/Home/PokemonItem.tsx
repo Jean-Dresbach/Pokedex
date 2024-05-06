@@ -1,4 +1,4 @@
-import { Box, Card, Skeleton, Typography } from "@mui/material"
+import { Box, CircularProgress, Typography } from "@mui/material"
 
 import { Pokemon, Type, typeColor } from "../../types/pokemon"
 import pokeballPng from "../../assets/pokeball.png"
@@ -6,7 +6,6 @@ import { getTypeIcon } from "../../assets/pokemomTypeIcons"
 import { useEffect, useState } from "react"
 import { fetchPokemonData } from "../../services/api"
 import { useAppSelector } from "../../redux"
-import { LoadingPokemonCard } from "./LoadingPokemonCard"
 
 interface PokemonItemProps {
   url: string
@@ -34,7 +33,7 @@ export function PokemonItem({ url }: PokemonItemProps) {
         typeColor[pokemonData!.types[0].type.name as Type]
       }, ${typeColor[pokemonData!.types[0].type.name as Type]} 50%, ${
         typeColor[pokemonData!.types[1].type.name as Type]
-      } 50%, ${typeColor[pokemonData!.types[1].type.name as Type]} 100%)`
+      } 51%, ${typeColor[pokemonData!.types[1].type.name as Type]} 100%)`
     }
   }
 
@@ -46,7 +45,16 @@ export function PokemonItem({ url }: PokemonItemProps) {
 
   return (
     <>
-      {!pokemonData && <LoadingPokemonCard />}
+      {!pokemonData && (
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            height: 140
+          }}>
+          <CircularProgress sx={{ margin: "auto" }} />
+        </Box>
+      )}
 
       {pokemonData && (
         <Box

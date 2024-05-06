@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios, { AxiosError } from "axios"
+import axios from "axios"
 
 import { FetchPokemons, NamedAPIResource, Pokemon } from "../types/pokemon"
 import { Filter } from "../types/filter"
@@ -56,7 +56,7 @@ export const fetchPokemonsList = async (
       return filteredArray
     }
   } catch (error) {
-    if (error instanceof AxiosError) {
+    if (axios.isAxiosError(error)) {
       console.log(error.response?.data)
     }
     throw new Error("Failed to fetch Pokemon list")
@@ -67,11 +67,11 @@ export const fetchPokemonData = async (url: string): Promise<Pokemon> => {
   try {
     const response = await api.get(url)
 
-    return response.data as Pokemon
+    return response.data
   } catch (error) {
-    if (error instanceof AxiosError) {
+    if (axios.isAxiosError(error)) {
       console.log(error.response?.data)
     }
-    throw new Error("Failed to fetch Pokemon data")
+    throw new Error("Failed to fetch Pokemon list")
   }
 }

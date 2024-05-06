@@ -8,7 +8,6 @@ import {
 import { useAppSelector } from "./redux"
 import { BackGround } from "./components/BackGround"
 import { Router } from "./routes/Router"
-import { LoadingBackdrop } from "./components/LoadingBackdrop"
 
 export function Root() {
   const currentTheme = useAppSelector(state => state.theme) as "light" | "dark"
@@ -20,6 +19,38 @@ export function Root() {
       primary: {
         main: themeMui.palette.error.main
       }
+    },
+    components: {
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            "&::-webkit-scrollbar": {
+              width: "8px"
+            },
+            "&::-webkit-scrollbar-track": {
+              backgroundColor: themeMui.palette.text.secondary
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: themeMui.palette.error.light
+            }
+          }
+        }
+      },
+      MuiContainer: {
+        styleOverrides: {
+          root: {
+            "&::-webkit-scrollbar": {
+              width: "8px"
+            },
+            "&::-webkit-scrollbar-track": {
+              backgroundColor: themeMui.palette.text.secondary
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: themeMui.palette.error.light
+            }
+          }
+        }
+      }
     }
   })
 
@@ -28,7 +59,6 @@ export function Root() {
       <CssBaseline />
       <BackGround>
         <Router />
-        <LoadingBackdrop />
       </BackGround>
     </ThemeProvider>
   )

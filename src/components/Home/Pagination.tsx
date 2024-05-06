@@ -4,8 +4,7 @@ import {
   IconButton,
   MenuItem,
   Select,
-  SelectChangeEvent,
-  useTheme
+  SelectChangeEvent
 } from "@mui/material"
 import { ArrowBackRounded, ArrowForwardRounded } from "@mui/icons-material"
 
@@ -17,8 +16,6 @@ import {
 } from "../../redux"
 
 export function Pagination() {
-  const theme = useTheme()
-
   const dispatch = useAppDispatch()
   const pagination = useAppSelector(state => state.pagination)
   const pokemons = useAppSelector(state => state.pokemons)
@@ -52,18 +49,7 @@ export function Pagination() {
         className="pagination"
         MenuProps={{
           PaperProps: {
-            sx: {
-              ...{ maxHeight: 250 },
-              "&::-webkit-scrollbar": {
-                width: "8px"
-              },
-              "&::-webkit-scrollbar-track": {
-                backgroundColor: theme.palette.text.secondary
-              },
-              "&::-webkit-scrollbar-thumb": {
-                backgroundColor: theme.palette.error.light
-              }
-            }
+            sx: { maxHeight: 250 }
           }
         }}>
         <MenuItem disabled>Páginas</MenuItem>

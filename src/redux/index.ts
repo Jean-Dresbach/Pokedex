@@ -1,7 +1,6 @@
 export * from "./store"
 export * from "./hooks"
 export * from "./slices/themeSlice"
-export * from "./slices/loadingSlice"
 export * from "./slices/paginationSlice"
 export * from "./slices/filterSlice"
 export * from "./slices/pokemonsSlice"

@@ -4,10 +4,10 @@ import { useAppSelector } from "../../redux"
 import { PokemonItem } from "./PokemonItem"
 
 export function PokemonsList() {
+  const viewWidth = useMediaQuery("(min-width:445px)")
   const pokemons = useAppSelector(state => state.pokemons)
   const pagination = useAppSelector(state => state.pagination)
 
-  const viewWidth = useMediaQuery("(min-width:445px)")
   return (
     <Grid
       container

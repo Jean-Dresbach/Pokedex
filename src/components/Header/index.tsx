@@ -1,26 +1,15 @@
-import { useState } from "react"
 import { Outlet } from "react-router-dom"
 import { Box, Container, Typography, useTheme } from "@mui/material"
-import { SearchRounded } from "@mui/icons-material"
 
 import { useAppSelector } from "../../redux"
 import { ToggleThemeButton } from "./ToggleThemeButton"
 import { Nav } from "./Nav"
 import pokeball from "../../assets/pokeball.png"
+import { Search } from "./Search"
 
 export function Header() {
   const themeMui = useTheme()
   const theme = useAppSelector(state => state.theme)
-
-  const [searchColor, setSearchColor] = useState("transparent")
-
-  const handleFocus = () => {
-    setSearchColor(themeMui.palette.primary.main)
-  }
-
-  const handleBlur = () => {
-    setSearchColor("transparent")
-  }
 
   return (
     <Box
@@ -38,16 +27,7 @@ export function Header() {
           backgroundColor: themeMui.palette.background.default,
           display: "flex",
           flexDirection: "column",
-          height: "100%",
-          "&::-webkit-scrollbar": {
-            width: "8px"
-          },
-          "&::-webkit-scrollbar-track": {
-            backgroundColor: themeMui.palette.text.secondary
-          },
-          "&::-webkit-scrollbar-thumb": {
-            backgroundColor: themeMui.palette.error.light
-          }
+          height: "100%"
         }}>
         <Box
           component="header"
@@ -81,34 +61,7 @@ export function Header() {
             <ToggleThemeButton />
           </Box>
 
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              borderRadius: 100,
-              maxWidth: "500px",
-              padding: "8px 16px",
-              border: `2px solid ${searchColor}`,
-              zIndex: 3,
-              backgroundColor: theme === "light" ? "#efefef" : "rgba(0,0,0,0.2)"
-            }}>
-            <SearchRounded />
-            <input
-              type="text"
-              onClick={handleFocus}
-              onBlur={handleBlur}
-              placeholder="Pesquise por nome ou id..."
-              style={{
-                outline: "none",
-                border: "none",
-                background: "none",
-                fontFamily: "roboto",
-                fontSize: "15px",
-                width: "100%",
-                color: theme === "light" ? "" : "white"
-              }}
-            />
-          </Box>
+          <Search />
 
           <img
             src={pokeball}

@@ -28,15 +28,16 @@ export function Home() {
 
       <Divider sx={{ my: 3 }} />
 
+      <Filter />
+
       <Box
         sx={{
           display: "flex",
-          justifyContent: "center"
+          justifyContent: "center",
+          mt: 3
         }}>
         <PokemonsList />
       </Box>
-
-      <Filter />
     </Box>
   )
 }

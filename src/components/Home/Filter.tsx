@@ -2,15 +2,13 @@ import { SyntheticEvent, useState } from "react"
 import { TuneRounded } from "@mui/icons-material"
 import {
   Box,
-  Container,
+  Button,
   Divider,
-  Fab,
   Modal,
   Paper,
   Slide,
   Tab,
   Tabs,
-  Tooltip,
   Typography
 } from "@mui/material"
 
@@ -50,27 +48,13 @@ export function Filter() {
 
   return (
     <>
-      <Container
-        maxWidth="md"
-        sx={{
-          position: "fixed",
-          zIndex: 9999,
-          bottom: 0,
-          left: 0,
-          right: 0,
-          display: "flex",
-          justifyContent: "end"
-        }}>
-        <Tooltip placement="top-end" title="Filtrar">
-          <Fab
-            size="medium"
-            color="error"
-            sx={{ marginBottom: "24px", marginRight: "8px" }}
-            onClick={toggleDrawer}>
-            <TuneRounded />
-          </Fab>
-        </Tooltip>
-      </Container>
+      <Button
+        variant="outlined"
+        onClick={toggleDrawer}
+        endIcon={<TuneRounded />}
+        sx={{ borderRadius: "100vw" }}>
+        Filtrar
+      </Button>
 
       <Modal open={open} onClose={toggleDrawer}>
         <Slide direction="up" in={open}>

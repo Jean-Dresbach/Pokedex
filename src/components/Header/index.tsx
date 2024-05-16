@@ -6,6 +6,7 @@ import { ToggleThemeButton } from "./ToggleThemeButton"
 import { Nav } from "./Nav"
 import pokeball from "../../assets/pokeball.png"
 import { Search } from "./Search"
+import { Footer } from "../Footer"
 
 export function Header() {
   const themeMui = useTheme()
@@ -81,6 +82,8 @@ export function Header() {
         <Box sx={{ flexGrow: 1 }}>
           <Outlet />
         </Box>
+
+        <Footer />
       </Container>
     </Box>
   )

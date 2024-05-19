@@ -1,25 +1,33 @@
-import { Box, CircularProgress, Typography } from "@mui/material"
+import { useEffect, useState } from "react"
+import { Box, CircularProgress, Typography, useTheme } from "@mui/material"
 
+import { fetchPokemonData } from "../../services/api"
+import { useAppDispatch, openPokemonModal } from "../../redux"
+import { getTypeIcon } from "../../assets/pokemomTypeIcons"
 import { Pokemon, Type, typeColor } from "../../types/pokemon"
 import pokeballPng from "../../assets/pokeball.png"
-import { getTypeIcon } from "../../assets/pokemomTypeIcons"
-import { useEffect, useState } from "react"
-import { fetchPokemonData } from "../../services/api"
-import { useAppSelector } from "../../redux"
 
-interface PokemonItemProps {
+interface PokemonCardProps {
   url: string
 }
 
-export function PokemonItem({ url }: PokemonItemProps) {
-  const theme = useAppSelector(state => state.theme)
+export function PokemonCard({ url }: PokemonCardProps) {
+  const theme = useTheme()
+  const dispatch = useAppDispatch()
+
   const [pokemonData, setPokemonData] = useState<Pokemon | null>()
 
   useEffect(() => {
     const handleGetPokemonData = async () => {
       const result = await fetchPokemonData(url)
 
-      setPokemonData(result)
+      setPokemonData({
+        ...result,
+        species: {
+          ...result.species,
+          name: capitalizeName(result.species.name)
+        }
+      })
     }
 
     handleGetPokemonData()
@@ -37,10 +45,14 @@ export function PokemonItem({ url }: PokemonItemProps) {
     }
   }
 
-  function capitalizeName(name: string) {
-    return name.replace(/(?:^|\s)\S/g, function (firstLetter) {
-      return firstLetter.toUpperCase()
-    })
+  const capitalizeName = (name: string) =>
+    name
+      .split(/(\s|-)/)
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join("")
+
+  const handleOpenPokemonModal = () => {
+    dispatch(openPokemonModal(pokemonData!))
   }
 
   return (
@@ -58,23 +70,31 @@ export function PokemonItem({ url }: PokemonItemProps) {
 
       {pokemonData && (
         <Box
+          onClick={handleOpenPokemonModal}
           sx={{
             width: "100%",
             position: "relative",
             overflow: "hidden",
             display: "flex",
+            border: `2px solid ${
+              theme.palette.mode === "light" ? "white" : "black"
+            }`,
             flexDirection: "column",
+            cursor: "pointer",
             gap: 1,
             height: 140,
             borderRadius: 6,
             p: 1.5,
-            background: pokemonData && handleBgColor()
+            background: pokemonData && handleBgColor(),
+            "&:hover": {
+              borderColor: theme.palette.primary.main
+            }
           }}>
           <Typography
             fontWeight={600}
             textAlign={"center"}
-            sx={{ color: theme === "dark" ? "black" : "white" }}>
-            {capitalizeName(pokemonData?.species.name as string)}
+            sx={{ color: theme.palette.mode === "dark" ? "black" : "white" }}>
+            {pokemonData?.species.name}
           </Typography>
 
           <Box sx={{ display: "flex", gap: 1, flexGrow: 1 }}>
@@ -92,7 +112,7 @@ export function PokemonItem({ url }: PokemonItemProps) {
                     alignItems: "center",
                     justifyContent: "space-between",
                     gap: 0.5,
-                    bgcolor: theme === "dark" ? "black" : "white",
+                    bgcolor: theme.palette.mode === "dark" ? "black" : "white",
                     borderRadius: "100vw",
                     px: 1,
                     py: 0.5
@@ -116,7 +136,7 @@ export function PokemonItem({ url }: PokemonItemProps) {
                   fontSize: 18,
                   fontStyle: "italic",
                   opacity: 0.3,
-                  color: theme === "dark" ? "black" : "white"
+                  color: theme.palette.mode === "dark" ? "black" : "white"
                 }}>
                 #{String(pokemonData?.id).padStart(4, "0")}
               </Typography>

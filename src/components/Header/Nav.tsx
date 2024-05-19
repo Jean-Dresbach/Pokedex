@@ -10,6 +10,7 @@ import {
 export function Nav() {
   const currentPage = useLocation().pathname
   const navigate = useNavigate()
+
   return (
     <Box
       component="nav"
@@ -18,8 +19,7 @@ export function Nav() {
         justifyContent: "space-between",
         px: 3,
         pt: 6
-      }}
-    >
+      }}>
       {currentPage === "/" ? (
         <>
           <Typography variant="h5" component="h2">
@@ -29,8 +29,7 @@ export function Nav() {
           <Button
             color="error"
             sx={{ borderRadius: "100vw" }}
-            onClick={() => navigate("/favorites")}
-          >
+            onClick={() => navigate("/favorites")}>
             <FavoriteBorder color="error" />
             <EastRounded />
           </Button>
@@ -40,8 +39,7 @@ export function Nav() {
           <Button
             color="error"
             sx={{ borderRadius: "100vw" }}
-            onClick={() => navigate("/")}
-          >
+            onClick={() => navigate("/")}>
             <WestRounded />
             <CatchingPokemon color="error" />
           </Button>

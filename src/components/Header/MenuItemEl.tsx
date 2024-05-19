@@ -19,11 +19,23 @@ export function MenuItemEl({ url, handleCloseMenu }: MenuItemElProps) {
     const handleGetPokemonData = async () => {
       const result = await fetchPokemonData(url)
 
-      setPokemonData(result)
+      setPokemonData({
+        ...result,
+        species: {
+          ...result.species,
+          name: capitalizeName(result.species.name)
+        }
+      })
     }
 
     handleGetPokemonData()
   }, [url])
+
+  const capitalizeName = (name: string) =>
+    name
+      .split(/(\s|-)/)
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join("")
 
   const handleOpenPokemonModal = () => {
     dispatch(openPokemonModal(pokemonData!))
@@ -43,15 +55,7 @@ export function MenuItemEl({ url, handleCloseMenu }: MenuItemElProps) {
             alignItems: "center"
           }}>
           <Box>
-            <Typography>
-              {pokemonData.name
-                .split(/(\s|-)/)
-                .map(
-                  word =>
-                    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-                )
-                .join("")}
-            </Typography>
+            <Typography>{pokemonData.species.name}</Typography>
             <Typography>#{String(pokemonData.id).padStart(4, "0")}</Typography>
           </Box>
           <img

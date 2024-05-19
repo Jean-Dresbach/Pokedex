@@ -6,17 +6,19 @@ import themeSlice from "./slices/themeSlice"
 import paginationSlice from "./slices/paginationSlice"
 import filterSlice from "./slices/filterSlice"
 import pokemonsSlice from "./slices/pokemonsSlice"
+import pokemonModalSlice from "./slices/pokemonModal"
 
 const rootReducer = combineReducers({
   theme: themeSlice,
   pagination: paginationSlice,
   filter: filterSlice,
-  pokemons: pokemonsSlice
+  pokemons: pokemonsSlice,
+  pokemonModal: pokemonModalSlice
 })
 
 export const persistedReducer = persistReducer(
   {
-    key: "pokedex",
+    key: "pokeWebApp",
     storage
   },
   rootReducer

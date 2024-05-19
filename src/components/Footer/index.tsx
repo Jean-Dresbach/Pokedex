@@ -1,7 +1,9 @@
-import { Box, Divider, IconButton, Tooltip } from "@mui/material"
+import { Box, Divider, IconButton, Tooltip, useTheme } from "@mui/material"
 import { GitHub, LinkedIn } from "@mui/icons-material"
 
 export function Footer() {
+  const theme = useTheme()
+
   const redirectToGitHub = () => {
     window.open("https://github.com/Jean-Dresbach", "_blank")
   }
@@ -9,22 +11,23 @@ export function Footer() {
     window.open("https://www.linkedin.com/in/jean-rafael-dresbach", "_blank")
   }
 
+  const iconColor = theme.palette.mode === "light" ? "black" : "white"
+
   return (
     <Box
       sx={{
-        textAlign: "center",
         p: 3
       }}>
       <Divider>
         <Tooltip title="GitHub" placement="top" arrow>
           <IconButton onClick={redirectToGitHub}>
-            <GitHub fontSize="large" />
+            <GitHub fontSize="large" sx={{ fill: iconColor }} />
           </IconButton>
         </Tooltip>
 
         <Tooltip title="Linkedin" placement="top" arrow>
           <IconButton onClick={redirectToLinkedin}>
-            <LinkedIn fontSize="large" />
+            <LinkedIn fontSize="large" sx={{ fill: iconColor }} />
           </IconButton>
         </Tooltip>
       </Divider>

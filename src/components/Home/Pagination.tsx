@@ -6,7 +6,7 @@ import {
   Select,
   SelectChangeEvent
 } from "@mui/material"
-import { ArrowBackRounded, ArrowForwardRounded } from "@mui/icons-material"
+import { EastRounded, WestRounded } from "@mui/icons-material"
 
 import {
   useAppSelector,
@@ -64,7 +64,7 @@ export function Pagination() {
         <IconButton
           disabled={pagination.currentPage === 1}
           onClick={handlePrev}>
-          <ArrowBackRounded />
+          <WestRounded />
         </IconButton>
         <IconButton
           disabled={
@@ -72,7 +72,7 @@ export function Pagination() {
             Math.ceil(pokemons.length / pagination.perPage)
           }
           onClick={handleNext}>
-          <ArrowForwardRounded />
+          <EastRounded />
         </IconButton>
       </Box>
     </Box>

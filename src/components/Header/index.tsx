@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom"
 import { Box, Container, Typography, useTheme } from "@mui/material"
 
-import { useAppSelector } from "../../redux"
 import { ToggleThemeButton } from "./ToggleThemeButton"
 import { Nav } from "./Nav"
 import pokeball from "../../assets/pokeball.png"
@@ -10,7 +9,6 @@ import { Footer } from "../Footer"
 
 export function Header() {
   const themeMui = useTheme()
-  const theme = useAppSelector(state => state.theme)
 
   return (
     <Box
@@ -39,7 +37,7 @@ export function Header() {
             maxHeight: "max-content",
             borderRadius: "0 0 32px 32px",
             backgroundColor:
-              theme === "light"
+              themeMui.palette.mode === "light"
                 ? themeMui.palette.grey[400]
                 : themeMui.palette.grey[900],
             p: 3,

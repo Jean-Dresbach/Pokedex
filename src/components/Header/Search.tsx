@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useRef, useState } from "react"
 import { SearchOffRounded, SearchRounded } from "@mui/icons-material"
 import {
   Box,
+  Button,
   ListItemIcon,
   ListItemText,
   Menu,
@@ -9,18 +10,17 @@ import {
   useTheme
 } from "@mui/material"
 
-import { useAppSelector } from "../../redux"
 import { Search as S } from "../../types/search"
 import { fetchPokemonsList } from "../../services/api"
 import { generationsData } from "../../types/filter"
 import { MenuItemEl } from "./MenuItemEl"
 
 export function Search() {
-  const themeMui = useTheme()
-  const theme = useAppSelector(state => state.theme)
+  const theme = useTheme()
 
   const timeoutRef = useRef<number | null>(null)
   const boxRef = useRef<HTMLDivElement | null>(null)
+  const [displayCount, setDisplayCount] = useState(24)
   const [search, setSearch] = useState<S>({
     value: "",
     color: "transparent",
@@ -43,7 +43,7 @@ export function Search() {
   }, [])
 
   const handleFocus = () => {
-    setSearch(prev => ({ ...prev, color: themeMui.palette.primary.main }))
+    setSearch(prev => ({ ...prev, color: theme.palette.primary.main }))
   }
 
   const handleBlur = () => {
@@ -62,6 +62,7 @@ export function Search() {
       })
 
       setSearch(prev => ({ ...prev, result: searchMatches }))
+      setDisplayCount(24)
     } else {
       setSearch(prev => ({ ...prev, result: [], isMenuOpen: false }))
     }
@@ -83,7 +84,10 @@ export function Search() {
     setSearch(prev => ({ ...prev, isMenuOpen: false }))
   }
 
-  // se o input for diferente de "" abro o menu e se o searchResult.length !== 0 eu mostro os resultados se nao o not found
+  const handleShowMore = () => {
+    setDisplayCount(prevCount => prevCount + 24)
+  }
+
   return (
     <>
       <Box
@@ -96,7 +100,8 @@ export function Search() {
           padding: "8px 16px",
           border: `2px solid ${search.color}`,
           zIndex: 3,
-          backgroundColor: theme === "light" ? "#efefef" : "rgba(0,0,0,0.2)"
+          backgroundColor:
+            theme.palette.mode === "light" ? "#efefef" : "rgba(0,0,0,0.2)"
         }}>
         <SearchRounded />
         <input
@@ -113,27 +118,32 @@ export function Search() {
             fontFamily: "roboto",
             fontSize: "15px",
             width: "100%",
-            color: theme === "light" ? "" : "white"
+            color: theme.palette.mode === "light" ? "" : "white"
           }}
         />
       </Box>
       <Menu
         open={search.isMenuOpen}
         anchorEl={boxRef.current}
-        onClose={handleCloseMenu}>
+        onClose={handleCloseMenu}
+        sx={{
+          "& .MuiPaper-root": {
+            width: "100%",
+            maxWidth: 500,
+            maxHeight: 400
+          }
+        }}>
         <Box
           sx={{
-            minWidth: "100%",
-            width: 500,
-            maxHeight: 400,
+            width: "100%",
             "&::-webkit-scrollbar": {
               width: "8px"
             },
             "&::-webkit-scrollbar-track": {
-              backgroundColor: themeMui.palette.text.secondary
+              backgroundColor: theme.palette.text.secondary
             },
             "&::-webkit-scrollbar-thumb": {
-              backgroundColor: themeMui.palette.error.light
+              backgroundColor: theme.palette.error.light
             }
           }}>
           {search.result.length === 0 ? (
@@ -144,7 +154,25 @@ export function Search() {
               <ListItemText>Não econtrado</ListItemText>
             </MenuItem>
           ) : (
-            search.result.map(i => <MenuItemEl key={i.name} url={i.url} />)
+            search.result
+              .slice(0, displayCount)
+              .map(i => (
+                <MenuItemEl
+                  key={i.name}
+                  url={i.url}
+                  handleCloseMenu={handleCloseMenu}
+                />
+              ))
+          )}
+          {search.result.length > displayCount && (
+            <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
+              <Button
+                variant="outlined"
+                onClick={handleShowMore}
+                sx={{ borderRadius: "100vw", px: 5 }}>
+                Ver mais
+              </Button>
+            </Box>
           )}
         </Box>
       </Menu>

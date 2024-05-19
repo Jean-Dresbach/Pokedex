@@ -3,12 +3,16 @@ import { useEffect, useState } from "react"
 import { Pokemon } from "../../types/pokemon"
 import { fetchPokemonData } from "../../services/api"
 import { Box, CircularProgress, MenuItem, Typography } from "@mui/material"
+import { openPokemonModal, useAppDispatch } from "../../redux"
 
 interface MenuItemElProps {
   url: string
+  handleCloseMenu: () => void
 }
 
-export function MenuItemEl({ url }: MenuItemElProps) {
+export function MenuItemEl({ url, handleCloseMenu }: MenuItemElProps) {
+  const dispatch = useAppDispatch()
+
   const [pokemonData, setPokemonData] = useState<Pokemon | null>(null)
 
   useEffect(() => {
@@ -21,12 +25,17 @@ export function MenuItemEl({ url }: MenuItemElProps) {
     handleGetPokemonData()
   }, [url])
 
+  const handleOpenPokemonModal = () => {
+    dispatch(openPokemonModal(pokemonData!))
+  }
+
   return (
-    <MenuItem>
+    <MenuItem onClick={handleCloseMenu}>
       {!pokemonData ? (
         <CircularProgress />
       ) : (
         <Box
+          onClick={handleOpenPokemonModal}
           sx={{
             width: "100%",
             display: "flex",
@@ -35,8 +44,13 @@ export function MenuItemEl({ url }: MenuItemElProps) {
           }}>
           <Box>
             <Typography>
-              {pokemonData.name.charAt(0).toUpperCase() +
-                pokemonData.name.slice(1)}
+              {pokemonData.name
+                .split(/(\s|-)/)
+                .map(
+                  word =>
+                    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                )
+                .join("")}
             </Typography>
             <Typography>#{String(pokemonData.id).padStart(4, "0")}</Typography>
           </Box>

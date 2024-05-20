@@ -31,7 +31,7 @@ export function Nav() {
             sx={{ borderRadius: "100vw" }}
             onClick={() => navigate("/favorites")}>
             <FavoriteBorder color="error" />
-            <EastRounded />
+            <EastRounded sx={{ ml: 2 }} />
           </Button>
         </>
       ) : (
@@ -40,7 +40,7 @@ export function Nav() {
             color="error"
             sx={{ borderRadius: "100vw" }}
             onClick={() => navigate("/")}>
-            <WestRounded />
+            <WestRounded sx={{ mr: 2 }} />
             <CatchingPokemon color="error" />
           </Button>
 

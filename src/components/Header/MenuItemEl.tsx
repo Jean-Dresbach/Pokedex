@@ -38,7 +38,7 @@ export function MenuItemEl({ url, handleCloseMenu }: MenuItemElProps) {
       .join("")
 
   const handleOpenPokemonModal = () => {
-    dispatch(openPokemonModal(pokemonData!))
+    dispatch(openPokemonModal(url))
   }
 
   return (

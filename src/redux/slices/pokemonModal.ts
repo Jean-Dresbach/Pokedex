@@ -1,19 +1,18 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
 import { PokemonModal } from "../../types/pokemonModal"
-import { Pokemon } from "../../types/pokemon"
 
 const initialState: PokemonModal = {
   isOpen: false,
-  pokemonData: null
+  url: ""
 }
 
 export const pokemonModalSlice = createSlice({
   name: "pokemonModal",
   initialState,
   reducers: {
-    openPokemonModal(_, action: PayloadAction<Pokemon>) {
-      return { isOpen: true, pokemonData: action.payload }
+    openPokemonModal(_, action: PayloadAction<string>) {
+      return { isOpen: true, url: action.payload }
     },
     closePokemonModal() {
       return initialState

@@ -2,5 +2,10 @@ import { Pokemon } from "./pokemon"
 
 export interface PokemonModal {
   isOpen: boolean
-  pokemonData: Pokemon | null
+  url: string
+}
+
+export interface PrevNextPokemon {
+  url: string
+  data: Pokemon | null
 }

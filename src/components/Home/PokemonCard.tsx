@@ -52,7 +52,7 @@ export function PokemonCard({ url }: PokemonCardProps) {
       .join("")
 
   const handleOpenPokemonModal = () => {
-    dispatch(openPokemonModal(pokemonData!))
+    dispatch(openPokemonModal(url))
   }
 
   return (

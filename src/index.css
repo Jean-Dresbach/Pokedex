@@ -64,29 +64,28 @@ body,
   position: absolute;
   cursor: pointer;
   filter: contrast(0%) brightness(0.4);
-  top: 0;
-
+  top: 45px;
   width: 100px;
   opacity: 0.3;
-  transition: all 0.5s ease;
-}
-
-.next {
-  right: 0;
-  transform: translate(60%, 50%);
-}
-
-.next:hover {
-  transform: translate(60%, 50%) scale(1.2) !important;
 }
 
 .prev {
-  left: 0;
-  transform: translate(-60%, 50%);
+  left: -30px;
 }
 
-.prev:hover {
-  transform: translate(-60%, 50%) scale(1.2) !important;
+.next {
+  right: -30px;
+}
+
+.prev:hover,
+.next:hover {
+  animation: reveal 0.5s ease forwards;
+}
+
+@keyframes reveal {
+  100% {
+    filter: contrast(100%);
+  }
 }
 
 @keyframes rotate {

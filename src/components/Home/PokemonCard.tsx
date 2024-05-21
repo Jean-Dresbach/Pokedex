@@ -5,6 +5,7 @@ import { fetchPokemonData } from "../../services/api"
 import { useAppDispatch, openPokemonModal } from "../../redux"
 import { getTypeIcon } from "../../assets/pokemomTypeIcons"
 import { Pokemon, Type, typeColor } from "../../types/pokemon"
+import { capitalizeWord } from "../../utilities/captalizeWord"
 import pokeballPng from "../../assets/pokeball.png"
 
 interface PokemonCardProps {
@@ -25,7 +26,7 @@ export function PokemonCard({ url }: PokemonCardProps) {
         ...result,
         species: {
           ...result.species,
-          name: capitalizeName(result.species.name)
+          name: capitalizeWord(result.species.name)
         }
       })
     }
@@ -44,12 +45,6 @@ export function PokemonCard({ url }: PokemonCardProps) {
       } 51%, ${typeColor[pokemonData!.types[1].type.name as Type]} 100%)`
     }
   }
-
-  const capitalizeName = (name: string) =>
-    name
-      .split(/(\s|-)/)
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join("")
 
   const handleOpenPokemonModal = () => {
     dispatch(openPokemonModal(url))

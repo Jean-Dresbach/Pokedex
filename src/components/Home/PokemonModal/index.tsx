@@ -1,15 +1,17 @@
+import { useEffect, useState } from "react"
 import { Box, CircularProgress, Modal, Slide } from "@mui/material"
+import { BlurOn } from "@mui/icons-material"
 
 import {
   useAppSelector,
   useAppDispatch,
   closePokemonModal
 } from "../../../redux"
+import { fetchPokemonData } from "../../../services/api"
+import { capitalizeWord } from "../../../utilities/captalizeWord"
 import { Pokemon, Type, typeColor } from "../../../types/pokemon"
 import { Header } from "./Header"
-import { BlurOn } from "@mui/icons-material"
-import { useEffect, useState } from "react"
-import { fetchPokemonData } from "../../../services/api"
+import { DetailedInfo } from "./DetailedInfo"
 
 export function PokemonModal() {
   const dispatch = useAppDispatch()
@@ -25,19 +27,13 @@ export function PokemonModal() {
         ...result,
         species: {
           ...result.species,
-          name: capitalizeName(result.species.name)
+          name: capitalizeWord(result.species.name)
         }
       })
     }
 
     handleGetPokemonData()
   }, [url])
-
-  const capitalizeName = (name: string) =>
-    name
-      .split(/(\s|-)/)
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join("")
 
   const handleClose = () => dispatch(closePokemonModal())
 
@@ -71,7 +67,10 @@ export function PokemonModal() {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description">
       <Slide direction="up" in={isOpen} mountOnEnter unmountOnExit>
-        <Box sx={{ height: "100%" }}>
+        <Box
+          sx={{
+            height: "100%"
+          }}>
           {!pokemonData && (
             <Box
               sx={{
@@ -87,11 +86,12 @@ export function PokemonModal() {
             <Box
               sx={{
                 position: "relative",
+                display: "flex",
+                flexDirection: "column",
                 height: "100%",
                 maxWidth: "900px",
                 margin: "auto",
                 overflow: "hidden",
-                p: 3,
                 outline: "none",
                 "&::before, &::after": {
                   content: '""',
@@ -100,7 +100,8 @@ export function PokemonModal() {
                   bottom: 0,
                   width: "50%",
                   backgroundSize: "100% 100%",
-                  zIndex: -1
+                  zIndex: -1,
+                  transition: "background 0.5s ease"
                 },
                 "&::before": {
                   left: 0,
@@ -123,6 +124,7 @@ export function PokemonModal() {
                   borderRadius: 10,
                   rotate: "350deg"
                 }}></Box>
+
               <BlurOn
                 sx={{
                   rotate: "180deg",
@@ -134,11 +136,14 @@ export function PokemonModal() {
                   fontSize: 100
                 }}
               />
+
               <Header
                 handleClose={handleClose}
                 pokemonData={pokemonData}
                 url={url}
               />
+
+              <DetailedInfo />
             </Box>
           )}
         </Box>

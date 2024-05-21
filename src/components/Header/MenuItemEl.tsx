@@ -4,6 +4,7 @@ import { Pokemon } from "../../types/pokemon"
 import { fetchPokemonData } from "../../services/api"
 import { Box, CircularProgress, MenuItem, Typography } from "@mui/material"
 import { openPokemonModal, useAppDispatch } from "../../redux"
+import { capitalizeWord } from "../../utilities/captalizeWord"
 
 interface MenuItemElProps {
   url: string
@@ -23,19 +24,13 @@ export function MenuItemEl({ url, handleCloseMenu }: MenuItemElProps) {
         ...result,
         species: {
           ...result.species,
-          name: capitalizeName(result.species.name)
+          name: capitalizeWord(result.species.name)
         }
       })
     }
 
     handleGetPokemonData()
   }, [url])
-
-  const capitalizeName = (name: string) =>
-    name
-      .split(/(\s|-)/)
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join("")
 
   const handleOpenPokemonModal = () => {
     dispatch(openPokemonModal(url))

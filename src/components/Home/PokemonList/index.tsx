@@ -1,8 +1,8 @@
 import { Grid, useMediaQuery } from "@mui/material"
 
-import { useAppSelector } from "../../redux"
+import { useAppSelector } from "../../../redux"
 import { PokemonCard } from "./PokemonCard"
-import { PokemonModal } from "./PokemonModal"
+import { PokemonModal } from "../PokemonModal"
 
 export function PokemonsList() {
   const viewWidth = useMediaQuery("(min-width:445px)")

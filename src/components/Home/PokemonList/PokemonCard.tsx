@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { Box, CircularProgress, Typography, useTheme } from "@mui/material"
 
-import { fetchPokemonData } from "../../services/api"
-import { useAppDispatch, openPokemonModal } from "../../redux"
-import { getTypeIcon } from "../../assets/pokemomTypeIcons"
-import { Pokemon, Type, typeColor } from "../../types/pokemon"
-import { capitalizeWord } from "../../utilities/captalizeWord"
-import pokeballPng from "../../assets/pokeball.png"
+import { fetchPokemonData } from "../../../services/api"
+import { useAppDispatch, openPokemonModal } from "../../../redux"
+import { getTypeIcon } from "../../../assets/pokemomTypeIcons"
+import { Pokemon, Type, typeColor } from "../../../types/pokemon"
+import { capitalizeWord } from "../../../utilities/captalizeWord"
+import pokeballPng from "../../../assets/pokeball.png"
 
 interface PokemonCardProps {
   url: string

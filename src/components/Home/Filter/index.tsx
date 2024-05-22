@@ -12,16 +12,16 @@ import {
   Typography
 } from "@mui/material"
 
-import { generationsData, pokemonTypesData } from "../../types/filter"
-import { Generations, Type, typeColor } from "../../types/pokemon"
+import { generationsData, pokemonTypesData } from "../../../types/filter"
+import { Generations, Type, typeColor } from "../../../types/pokemon"
 import {
   setCurrentPage,
   setGeneration,
   setType,
   useAppDispatch,
   useAppSelector
-} from "../../redux"
-import { getTypeIcon } from "../../assets/pokemomTypeIcons"
+} from "../../../redux"
+import { getTypeIcon } from "../../../assets/pokemomTypeIcons"
 import { GenElement } from "./GenElement"
 
 export function Filter() {

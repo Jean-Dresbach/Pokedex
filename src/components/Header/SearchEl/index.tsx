@@ -10,12 +10,12 @@ import {
   useTheme
 } from "@mui/material"
 
-import { Search as S } from "../../types/search"
-import { fetchPokemonsList } from "../../services/api"
-import { generationsData } from "../../types/filter"
+import { Search as S } from "../../../types/search"
+import { fetchPokemonsList } from "../../../services/api"
+import { generationsData } from "../../../types/filter"
 import { MenuItemEl } from "./MenuItemEl"
 
-export function Search() {
+export function SearchEl() {
   const theme = useTheme()
 
   const timeoutRef = useRef<number | null>(null)

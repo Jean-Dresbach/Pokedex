@@ -3,9 +3,9 @@ import { Box, Container, Typography, useTheme } from "@mui/material"
 
 import { ToggleThemeButton } from "./ToggleThemeButton"
 import { Nav } from "./Nav"
-import pokeball from "../../assets/pokeball.png"
-import { Search } from "./Search"
+import { SearchEl } from "./SearchEl"
 import { Footer } from "../Footer"
+import pokeball from "../../assets/pokeball.png"
 
 export function Header() {
   const themeMui = useTheme()
@@ -60,7 +60,7 @@ export function Header() {
             <ToggleThemeButton />
           </Box>
 
-          <Search />
+          <SearchEl />
 
           <img
             src={pokeball}

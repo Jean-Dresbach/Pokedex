@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 
-import { Pokemon } from "../../types/pokemon"
-import { fetchPokemonData } from "../../services/api"
+import { Pokemon } from "../../../types/pokemon"
+import { fetchPokemonData } from "../../../services/api"
 import { Box, CircularProgress, MenuItem, Typography } from "@mui/material"
-import { openPokemonModal, useAppDispatch } from "../../redux"
-import { capitalizeWord } from "../../utilities/captalizeWord"
+import { openPokemonModal, useAppDispatch } from "../../../redux"
+import { capitalizeWord } from "../../../utilities/captalizeWord"
 
 interface MenuItemElProps {
   url: string

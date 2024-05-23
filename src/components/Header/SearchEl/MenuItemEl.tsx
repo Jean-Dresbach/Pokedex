@@ -18,15 +18,9 @@ export function MenuItemEl({ url, handleCloseMenu }: MenuItemElProps) {
 
   useEffect(() => {
     const handleGetPokemonData = async () => {
-      const result = await fetchPokemonData(url)
+      const result = (await fetchPokemonData(url)) as Pokemon
 
-      setPokemonData({
-        ...result,
-        species: {
-          ...result.species,
-          name: capitalizeWord(result.species.name)
-        }
-      })
+      setPokemonData(result)
     }
 
     handleGetPokemonData()
@@ -50,7 +44,7 @@ export function MenuItemEl({ url, handleCloseMenu }: MenuItemElProps) {
             alignItems: "center"
           }}>
           <Box>
-            <Typography>{pokemonData.species.name}</Typography>
+            <Typography>{capitalizeWord(pokemonData.species.name)}</Typography>
             <Typography>#{String(pokemonData.id).padStart(4, "0")}</Typography>
           </Box>
           <img

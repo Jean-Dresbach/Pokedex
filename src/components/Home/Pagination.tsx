@@ -52,7 +52,7 @@ export function Pagination() {
             sx: { maxHeight: 250 }
           }
         }}>
-        <MenuItem disabled>Páginas</MenuItem>
+        <MenuItem disabled>Pages</MenuItem>
         {Array.from({ length: pagination.totalOfPage }, (_, index) => (
           <MenuItem key={index + 1} value={index + 1}>
             {index + 1}

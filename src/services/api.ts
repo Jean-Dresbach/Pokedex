@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios"
 
-import { FetchPokemons, NamedAPIResource, Pokemon } from "../types/pokemon"
+import {
+  FetchPokemonData,
+  FetchPokemons,
+  NamedAPIResource
+} from "../types/pokemon"
 import { Filter } from "../types/filter"
 
 const api = axios.create({
@@ -37,20 +41,20 @@ export const fetchPokemonsList = async (
           name: item.pokemon.name,
           url: item.pokemon.url
         })
-      ) // Transforma a response no formato NamedAPIResource[]
+      ) // Transforms the response into NamedAPIResource[] format
 
       const extractIdFromUrl = (url: string) => {
-        const idMatch = url.match(/\/(\d+)\/$/) // Encontra o número após a última barra na URL
-        return idMatch ? Number(idMatch[1]) : null // Retorna o número encontrado como um inteiro, ou null se não houver correspondência
+        const idMatch = url.match(/\/(\d+)\/$/) // Finds the number after the last slash in the URL
+        return idMatch ? Number(idMatch[1]) : null // Returns the found number as an integer, or null if there is no match
       }
 
       const filteredArray = transformedArray.filter(item => {
-        const id = extractIdFromUrl(item.url) // Extrai o ID da URL
+        const id = extractIdFromUrl(item.url) // Extract ID from URL
         return (
           id &&
           id > filter.generation.offset &&
           id <= filter.generation.offset + filter.generation.count
-        ) // Retorna true se o ID estiver dentro do intervalo desejado
+        ) // Returns true if the ID is within the desired range
       })
 
       return filteredArray
@@ -63,7 +67,9 @@ export const fetchPokemonsList = async (
   }
 }
 
-export const fetchPokemonData = async (url: string): Promise<Pokemon> => {
+export const fetchPokemonData = async (
+  url: string
+): Promise<FetchPokemonData> => {
   try {
     const response = await api.get(url)
 

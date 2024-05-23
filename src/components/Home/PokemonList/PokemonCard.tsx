@@ -20,7 +20,7 @@ export function PokemonCard({ url }: PokemonCardProps) {
 
   useEffect(() => {
     const handleGetPokemonData = async () => {
-      const result = await fetchPokemonData(url)
+      const result = (await fetchPokemonData(url)) as Pokemon
 
       setPokemonData({
         ...result,

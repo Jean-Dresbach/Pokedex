@@ -51,12 +51,12 @@ export function Header() {
               mb: 3,
               fontSize: "clamp(20px, 5vw, 30px)"
             }}>
-            Qual pokemon
+            Which Pokémon
             <br />
-            você esta procurando?
+            are you looking for?
           </Typography>
 
-          <Box sx={{ position: "absolute", top: "39px", right: "24px" }}>
+          <Box sx={{ position: "absolute", top: 39, right: 25 }}>
             <ToggleThemeButton />
           </Box>
 

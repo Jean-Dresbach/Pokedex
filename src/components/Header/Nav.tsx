@@ -23,7 +23,7 @@ export function Nav() {
       {currentPage === "/" ? (
         <>
           <Typography variant="h5" component="h2">
-            Pokedex
+            Pokédex
           </Typography>
 
           <Button
@@ -45,7 +45,7 @@ export function Nav() {
           </Button>
 
           <Typography variant="h5" component="h2">
-            Favoritos
+            Favorites
           </Typography>
         </>
       )}

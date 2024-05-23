@@ -3,6 +3,7 @@ import { AutoAwesome, CircleOutlined } from "@mui/icons-material"
 
 import { Pokemon, Type, typeColor } from "../../../../types/pokemon"
 import { getTypeIcon } from "../../../../assets/pokemomTypeIcons"
+import { capitalizeWord } from "../../../../utilities/captalizeWord"
 
 interface PokemonBasicInfo {
   pokemonData: Pokemon
@@ -28,7 +29,7 @@ export function PokemonBasicInfo({
           mt: 4
         }}>
         <Typography variant="h4" sx={{ color: colorOnTheme, fontWeight: 600 }}>
-          {pokemonData.species.name}
+          {capitalizeWord(pokemonData.species.name)}
         </Typography>
 
         <Typography variant="h6" sx={{ color: colorOnTheme, fontWeight: 600 }}>
@@ -83,7 +84,7 @@ export function PokemonBasicInfo({
           sx={{
             display: "flex",
             alignItems: "center",
-            minWidth: "max-content",
+            width: 133,
             borderRadius: "100vw",
             boxShadow: "none",
             color: !showShiny ? "orange" : "GrayText",
@@ -95,15 +96,15 @@ export function PokemonBasicInfo({
               bgcolor: colorOnTheme
             }
           }}
-          startIcon={
+          endIcon={
             !showShiny ? (
               <AutoAwesome fontSize="small" sx={{ color: "orange" }} />
             ) : (
               <CircleOutlined fontSize="small" sx={{ color: "GrayText" }} />
             )
           }>
-          ver
-          {!showShiny ? " shiny" : " padrão"}
+          see
+          {!showShiny ? " shiny" : " default"}
         </Button>
       </Box>
     </>

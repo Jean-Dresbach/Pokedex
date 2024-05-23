@@ -110,7 +110,7 @@ export function SearchEl() {
           value={search.value}
           onChange={handleSearchedValueChange}
           onBlur={handleBlur}
-          placeholder="Pesquise por nome ou id..."
+          placeholder="Search for name or id..."
           style={{
             outline: "none",
             border: "none",
@@ -151,7 +151,7 @@ export function SearchEl() {
               <ListItemIcon>
                 <SearchOffRounded />
               </ListItemIcon>
-              <ListItemText>Não econtrado</ListItemText>
+              <ListItemText>Not found</ListItemText>
             </MenuItem>
           ) : (
             search.result
@@ -170,7 +170,7 @@ export function SearchEl() {
                 variant="outlined"
                 onClick={handleShowMore}
                 sx={{ borderRadius: "100vw", px: 5 }}>
-                Ver mais
+                See more
               </Button>
             </Box>
           )}

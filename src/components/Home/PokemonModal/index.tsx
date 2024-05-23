@@ -8,7 +8,6 @@ import {
   closePokemonModal
 } from "../../../redux"
 import { fetchPokemonData } from "../../../services/api"
-import { capitalizeWord } from "../../../utilities/captalizeWord"
 import { Pokemon, Type, typeColor } from "../../../types/pokemon"
 import { Header } from "./Header"
 import { DetailedInfo } from "./DetailedInfo"
@@ -20,31 +19,25 @@ export function PokemonModal() {
   const [pokemonData, setPokemonData] = useState<Pokemon | null>(null)
 
   useEffect(() => {
-    const handleGetPokemonData = async () => {
-      const result = await fetchPokemonData(url)
+    if (isOpen) {
+      const handleGetPokemonData = async () => {
+        const result = (await fetchPokemonData(url)) as Pokemon
 
-      setPokemonData({
-        ...result,
-        species: {
-          ...result.species,
-          name: capitalizeWord(result.species.name)
-        }
-      })
+        setPokemonData(result)
+      }
+
+      handleGetPokemonData()
     }
-
-    handleGetPokemonData()
-  }, [url])
+  }, [isOpen, url])
 
   const handleClose = () => dispatch(closePokemonModal())
 
   const handleBgColor = () => {
-    if (!pokemonData || pokemonData.types.length === 0) {
-      return ["", ""]
-    }
-
     const createVerticalGradient = (color: string) => {
       return `linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.63)), ${color}`
     }
+
+    if (!pokemonData) return ["transparent", "transparent"]
 
     const type1Color = typeColor[pokemonData.types[0].type.name as Type]
     const type1Gradient = createVerticalGradient(type1Color)
@@ -92,6 +85,7 @@ export function PokemonModal() {
                 maxWidth: "900px",
                 margin: "auto",
                 overflow: "hidden",
+                overflowY: "auto",
                 outline: "none",
                 "&::before, &::after": {
                   content: '""',
@@ -143,7 +137,7 @@ export function PokemonModal() {
                 url={url}
               />
 
-              <DetailedInfo />
+              <DetailedInfo pokemonData={pokemonData} />
             </Box>
           )}
         </Box>

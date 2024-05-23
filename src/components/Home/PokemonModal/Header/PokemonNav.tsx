@@ -37,7 +37,7 @@ export function PokemonNav({ url, showShiny, pokemonData }: PokemonNavProps) {
     setNextPokemon(prevNextInitialState)
 
     const handleGetPokemonData = async (isPrev: boolean, url: string) => {
-      const result = await fetchPokemonData(url)
+      const result = (await fetchPokemonData(url)) as Pokemon
       isPrev
         ? setPrevPokemon({
             url: url,

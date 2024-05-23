@@ -51,6 +51,8 @@ export const typeColor = {
   normal: "#9099a1"
 }
 
+export type FetchPokemonData = Pokemon | PokemonSpecie
+
 export interface FetchPokemons {
   count: number
   next: string | null
@@ -61,17 +63,11 @@ export interface FetchPokemons {
 export interface Pokemon {
   id: number
   name: string
-  base_experience: number
   height: number
-  is_default: boolean
-  order: number
   weight: number
   abilities: Ability[]
   forms: NamedAPIResource[]
-  game_indices: VersionGameIndex[]
-  held_items: PokemonHeldItem[]
   location_area_encounters: string
-  moves: PokemonMove[]
   sprites: PokemonSprites
   species: NamedAPIResource
   stats: PokemonStat[]
@@ -88,31 +84,9 @@ export interface NamedAPIResource {
   name: string
   url: string
 }
-
-export interface VersionGameIndex {
-  game_index: number
-  version: NamedAPIResource
-}
-
-export interface PokemonHeldItem {
-  item: NamedAPIResource
-  version_details: PokemonHeldItemVersion[]
-}
-
 export interface PokemonHeldItemVersion {
   version: NamedAPIResource
   rarity: number
-}
-
-export interface PokemonMove {
-  move: NamedAPIResource
-  version_group_details: PokemonMoveVersion[]
-}
-
-export interface PokemonMoveVersion {
-  move_learn_method: NamedAPIResource
-  version_group: NamedAPIResource
-  level_learned_at: number
 }
 
 export interface PokemonSprites {
@@ -133,4 +107,26 @@ export interface PokemonStat {
 export interface PokemonType {
   slot: number
   type: NamedAPIResource
+}
+
+export interface PokemonSpecie {
+  egg_groups: NamedAPIResource[]
+  evolution_chain: {
+    url: string
+  }
+  flavor_text_entries: FlavorTextEntrie[]
+  gender_rate: number
+  habitat: NamedAPIResource
+  varieties: Varietie[]
+}
+
+export interface FlavorTextEntrie {
+  flavor_text: string
+  language: NamedAPIResource
+  version: NamedAPIResource
+}
+
+export interface Varietie {
+  is_default: boolean
+  pokemon: NamedAPIResource
 }

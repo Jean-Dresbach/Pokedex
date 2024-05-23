@@ -53,7 +53,7 @@ export function Filter() {
         onClick={toggleDrawer}
         endIcon={<TuneRounded />}
         sx={{ borderRadius: "100vw" }}>
-        Filtrar
+        Filter
       </Button>
 
       <Modal open={open} onClose={toggleDrawer}>
@@ -72,7 +72,7 @@ export function Filter() {
             }}
             elevation={3}>
             <Divider sx={{ my: 2, fontSize: 25 }} textAlign="left">
-              GERAÇÃO
+              Generation
             </Divider>
 
             <Tabs
@@ -99,7 +99,7 @@ export function Filter() {
             </Tabs>
 
             <Divider sx={{ my: 2, fontSize: 25 }} textAlign="right">
-              TIPO
+              Type
             </Divider>
 
             <Tabs

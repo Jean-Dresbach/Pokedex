@@ -5,10 +5,11 @@ import { ToggleThemeButton } from "./ToggleThemeButton"
 import { Nav } from "./Nav"
 import { SearchEl } from "./SearchEl"
 import { Footer } from "../Footer"
-import pokeball from "../../assets/pokeball.png"
+import pokeballWhite from "../../assets/pokeball-white.png"
+import pokeballBlack from "../../assets/pokeball-black.png"
 
 export function Header() {
-  const themeMui = useTheme()
+  const theme = useTheme()
 
   return (
     <Box
@@ -23,7 +24,7 @@ export function Header() {
           padding: "0 !important",
           overflow: "hidden",
           overflowY: "auto",
-          backgroundColor: themeMui.palette.background.default,
+          backgroundColor: theme.palette.background.default,
           display: "flex",
           flexDirection: "column",
           height: "100%"
@@ -37,9 +38,9 @@ export function Header() {
             maxHeight: "max-content",
             borderRadius: "0 0 32px 32px",
             backgroundColor:
-              themeMui.palette.mode === "light"
-                ? themeMui.palette.grey[400]
-                : themeMui.palette.grey[900],
+              theme.palette.mode === "light"
+                ? theme.palette.grey[400]
+                : theme.palette.grey[900],
             p: 3,
             py: 5
           }}>
@@ -63,14 +64,14 @@ export function Header() {
           <SearchEl />
 
           <img
-            src={pokeball}
+            src={theme.palette.mode === "light" ? pokeballWhite : pokeballBlack}
             style={{
               height: "250px",
               width: "250px",
               opacity: 0.3,
               position: "absolute",
-              top: "-79px",
-              right: "-89px"
+              top: "-73px",
+              right: "-88px"
             }}
           />
         </Box>

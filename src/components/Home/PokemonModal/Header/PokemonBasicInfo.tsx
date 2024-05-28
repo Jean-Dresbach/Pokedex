@@ -4,6 +4,7 @@ import { AutoAwesome, CircleOutlined } from "@mui/icons-material"
 import { Pokemon, Type, typeColor } from "../../../../types/pokemon"
 import { getTypeIcon } from "../../../../assets/pokemomTypeIcons"
 import { capitalizeWord } from "../../../../utilities/captalizeWord"
+import { getPokemonIdFromUrl } from "../../../../types/pokemonModal"
 
 interface PokemonBasicInfo {
   pokemonData: Pokemon
@@ -19,6 +20,8 @@ export function PokemonBasicInfo({
   showShiny
 }: PokemonBasicInfo) {
   const theme = useTheme()
+  const id = getPokemonIdFromUrl(pokemonData.species.url)
+
   return (
     <>
       <Box
@@ -28,12 +31,16 @@ export function PokemonBasicInfo({
           alignItems: "center",
           mt: 4
         }}>
-        <Typography variant="h4" sx={{ color: colorOnTheme, fontWeight: 600 }}>
-          {capitalizeWord(pokemonData.species.name)}
+        <Typography
+          variant="h4"
+          sx={{ color: colorOnTheme, fontWeight: 600, zIndex: 1 }}>
+          {capitalizeWord(pokemonData.name)}
         </Typography>
 
-        <Typography variant="h6" sx={{ color: colorOnTheme, fontWeight: 600 }}>
-          #{String(pokemonData.id).padStart(4, "0")}
+        <Typography
+          variant="h6"
+          sx={{ color: colorOnTheme, fontWeight: 600, zIndex: 1 }}>
+          #{String(id).padStart(4, "0")}
         </Typography>
       </Box>
 
@@ -49,7 +56,8 @@ export function PokemonBasicInfo({
           sx={{
             display: "flex",
             flexWrap: "wrap",
-            gap: 1
+            gap: 1,
+            zIndex: 1
           }}>
           {pokemonData.types.map(t => (
             <Box
@@ -91,6 +99,7 @@ export function PokemonBasicInfo({
             fontSize: 12,
             lineHeight: 0,
             fontWeight: 600,
+            zIndex: 1,
             bgcolor: colorOnTheme,
             "&:hover": {
               bgcolor: colorOnTheme

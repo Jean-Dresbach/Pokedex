@@ -6,7 +6,8 @@ import { useAppDispatch, openPokemonModal } from "../../../redux"
 import { getTypeIcon } from "../../../assets/pokemomTypeIcons"
 import { Pokemon, Type, typeColor } from "../../../types/pokemon"
 import { capitalizeWord } from "../../../utilities/captalizeWord"
-import pokeballPng from "../../../assets/pokeball.png"
+import pokeballWhite from "../../../assets/pokeball-white.png"
+import pokeballBlack from "../../../assets/pokeball-black.png"
 
 interface PokemonCardProps {
   url: string
@@ -110,7 +111,7 @@ export function PokemonCard({ url }: PokemonCardProps) {
                     bgcolor: theme.palette.mode === "dark" ? "black" : "white",
                     borderRadius: "100vw",
                     px: 1,
-                    py: 0.5
+                    py: 0.4
                   }}>
                   <Typography
                     fontSize={12}
@@ -160,7 +161,7 @@ export function PokemonCard({ url }: PokemonCardProps) {
           </Box>
 
           <img
-            src={pokeballPng}
+            src={theme.palette.mode === "light" ? pokeballWhite : pokeballBlack}
             style={{
               width: "100px",
               opacity: 0.5,

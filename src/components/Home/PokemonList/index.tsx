@@ -21,7 +21,7 @@ export function PokemonsList() {
             pagination.currentPage * pagination.perPage
           )
           .map(pokemon => (
-            <Grid key={pokemon.name} item xs={viewWidth ? 6 : 12} sm={4} md={3}>
+            <Grid item key={pokemon.name} xs={viewWidth ? 6 : 12} sm={4} md={3}>
               <PokemonCard url={pokemon.url} />
             </Grid>
           ))}

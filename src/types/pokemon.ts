@@ -111,6 +111,7 @@ export interface PokemonType {
 
 export interface PokemonSpecie {
   egg_groups: NamedAPIResource[]
+  growth_rate: NamedAPIResource
   evolution_chain: {
     url: string
   }

@@ -12,7 +12,7 @@ export interface PrevNextPokemon {
 
 export const getPokemonIdFromUrl = (url: string): number => {
   // Expressão regular para capturar o número no final da URL
-  const regex = /\/pokemon\/(\d+)\/$/
+  const regex = /\/(?:pokemon|pokemon-species)\/(\d+)\/?$/
   const match = url.match(regex)
 
   if (match && match[1]) {

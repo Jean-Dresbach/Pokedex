@@ -1,8 +1,8 @@
 import { ReactNode } from "react"
 import { useTheme } from "@mui/material"
 
-import bgLight from "../assets/pokeball-bg-light-icon.svg"
-import bgDark from "../assets/pokeball-bg-dark-icon.svg"
+import pokeballWhite from "../assets/pokeball-white.png"
+import pokeballBlack from "../assets/pokeball-black.png"
 
 interface BackGroundProps {
   children?: ReactNode
@@ -25,15 +25,21 @@ export function BackGround({ children }: BackGroundProps) {
         <div
           id="pokeball-pattern"
           style={{
-            backgroundImage: `url(${themeModeIsLight ? bgLight : bgDark})`
-          }}></div>
+            backgroundSize: "80px",
+            backgroundImage: `url(${
+              themeModeIsLight ? pokeballBlack : pokeballWhite
+            })`
+          }}
+        />
+
         <div
           id="pokeball-gradient-overlay"
           className={
             themeModeIsLight
               ? "gradient-overlay-bgLight"
               : "gradient-overlay-bgDark"
-          }></div>
+          }
+        />
         {children}
       </div>
     </div>

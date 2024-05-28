@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import { Box, CircularProgress, Modal, Slide } from "@mui/material"
-import { BlurOn } from "@mui/icons-material"
+import { Box, CircularProgress, Modal, Slide, useTheme } from "@mui/material"
 
 import {
   useAppSelector,
@@ -8,15 +7,19 @@ import {
   closePokemonModal
 } from "../../../redux"
 import { fetchPokemonData } from "../../../services/api"
-import { Pokemon, Type, typeColor } from "../../../types/pokemon"
+import { Pokemon } from "../../../types/pokemon"
 import { Header } from "./Header"
 import { DetailedInfo } from "./DetailedInfo"
 
 export function PokemonModal() {
+  const theme = useTheme()
+
   const dispatch = useAppDispatch()
   const { isOpen, url } = useAppSelector(state => state.pokemonModal)
 
   const [pokemonData, setPokemonData] = useState<Pokemon | null>(null)
+
+  const [showShiny, setShowShiny] = useState(false)
 
   useEffect(() => {
     if (isOpen) {
@@ -30,28 +33,11 @@ export function PokemonModal() {
     }
   }, [isOpen, url])
 
-  const handleClose = () => dispatch(closePokemonModal())
-
-  const handleBgColor = () => {
-    const createVerticalGradient = (color: string) => {
-      return `linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.63)), ${color}`
-    }
-
-    if (!pokemonData) return ["transparent", "transparent"]
-
-    const type1Color = typeColor[pokemonData.types[0].type.name as Type]
-    const type1Gradient = createVerticalGradient(type1Color)
-
-    if (pokemonData.types.length === 1) {
-      return [type1Gradient, type1Gradient]
-    } else {
-      const type2Color = typeColor[pokemonData.types[1].type.name as Type]
-      const type2Gradient = createVerticalGradient(type2Color)
-      return [type1Gradient, type2Gradient]
-    }
+  const toggleShowShiny = () => {
+    setShowShiny(prev => !prev)
   }
 
-  const [gradient1, gradient2] = handleBgColor()
+  const handleClose = () => dispatch(closePokemonModal())
 
   return (
     <Modal
@@ -75,69 +61,39 @@ export function PokemonModal() {
               <CircularProgress />
             </Box>
           )}
+
           {pokemonData && (
             <Box
               sx={{
-                position: "relative",
+                bgcolor: theme.palette.background.default,
                 display: "flex",
                 flexDirection: "column",
                 height: "100%",
                 maxWidth: "900px",
                 margin: "auto",
                 overflow: "hidden",
-                overflowY: "auto",
+                overflowY: "scroll",
                 outline: "none",
-                "&::before, &::after": {
-                  content: '""',
-                  position: "absolute",
-                  top: 0,
-                  bottom: 0,
-                  width: "50%",
-                  backgroundSize: "100% 100%",
-                  zIndex: -1,
-                  transition: "background 0.5s ease"
+
+                "&::-webkit-scrollbar": {
+                  width: "8px"
                 },
-                "&::before": {
-                  left: 0,
-                  background: gradient1
+                "&::-webkit-scrollbar-track": {
+                  backgroundColor: theme.palette.text.secondary
                 },
-                "&::after": {
-                  right: 0,
-                  background: gradient2
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: theme.palette.error.light
                 }
               }}>
-              <Box
-                sx={{
-                  width: 250,
-                  height: 250,
-                  position: "absolute",
-                  top: -150,
-                  left: -120,
-                  background:
-                    "linear-gradient(to bottom,rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.05))",
-                  borderRadius: 10,
-                  rotate: "350deg"
-                }}></Box>
-
-              <BlurOn
-                sx={{
-                  rotate: "180deg",
-                  position: "absolute",
-                  top: -33,
-                  right: "15%",
-                  color: "white",
-                  opacity: 0.3,
-                  fontSize: 100
-                }}
-              />
-
               <Header
+                toggleShowShiny={toggleShowShiny}
                 handleClose={handleClose}
+                showShiny={showShiny}
                 pokemonData={pokemonData}
                 url={url}
               />
 
-              <DetailedInfo pokemonData={pokemonData} />
+              <DetailedInfo pokemonData={pokemonData} showShiny={showShiny} />
             </Box>
           )}
         </Box>

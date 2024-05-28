@@ -1,5 +1,5 @@
 import { SyntheticEvent, useEffect, useState } from "react"
-import { Box, Fade, Tab, Tabs, Typography, useTheme } from "@mui/material"
+import { Box, Fade, Tab, Tabs, Typography } from "@mui/material"
 
 import { Pokemon } from "../../../../types/pokemon"
 import { About } from "./About"
@@ -8,11 +8,10 @@ interface TabPanelProps {
   children?: React.ReactNode
   index: number
   value: number
-  bgColor: string
 }
 
 function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, bgColor, ...other } = props
+  const { children, value, index, ...other } = props
 
   return (
     <div
@@ -21,7 +20,7 @@ function CustomTabPanel(props: TabPanelProps) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}>
-      {value === index && <Box sx={{ p: 3, bgcolor: bgColor }}>{children}</Box>}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   )
 }
@@ -35,11 +34,10 @@ function a11yProps(index: number) {
 
 interface DetailedInfoProps {
   pokemonData: Pokemon
+  showShiny: boolean
 }
 
-export function DetailedInfo({ pokemonData }: DetailedInfoProps) {
-  const theme = useTheme()
-
+export function DetailedInfo({ pokemonData, showShiny }: DetailedInfoProps) {
   const [value, setValue] = useState(0)
   const [renderKey, setRenderKey] = useState(0)
 
@@ -53,13 +51,9 @@ export function DetailedInfo({ pokemonData }: DetailedInfoProps) {
   return (
     <Box
       sx={{
-        bgcolor: theme.palette.background.default,
         flexGrow: 1,
-        mt: -8,
         zIndex: 0,
-        p: 3,
-        pt: 6,
-        borderRadius: "32px 32px 0 0"
+        p: 3
       }}>
       <Tabs value={value} onChange={handleChange} centered>
         <Tab label="About" {...a11yProps(0)} />
@@ -67,33 +61,21 @@ export function DetailedInfo({ pokemonData }: DetailedInfoProps) {
         <Tab label="Evolution" {...a11yProps(2)} />
       </Tabs>
 
-      <CustomTabPanel
-        value={value}
-        index={0}
-        bgColor={theme.palette.background.default}
-        key={renderKey}>
-        <Fade in={value === 0} timeout={1000}>
+      <CustomTabPanel value={value} index={0} key={renderKey}>
+        <Fade in={value === 0} timeout={800}>
           <Box sx={{ height: "100%" }}>
-            <About pokemonData={pokemonData} />
+            <About pokemonData={pokemonData} showShiny={showShiny} />
           </Box>
         </Fade>
       </CustomTabPanel>
 
-      <CustomTabPanel
-        value={value}
-        index={1}
-        bgColor={theme.palette.background.default}
-        key={renderKey + 1}>
-        <Fade in={value === 1} timeout={1000}>
+      <CustomTabPanel value={value} index={1} key={renderKey + 1}>
+        <Fade in={value === 1} timeout={800}>
           <Typography> Item Two</Typography>
         </Fade>
       </CustomTabPanel>
-      <CustomTabPanel
-        value={value}
-        index={2}
-        bgColor={theme.palette.background.default}
-        key={renderKey + 2}>
-        <Fade in={value === 2} timeout={1000}>
+      <CustomTabPanel value={value} index={2} key={renderKey + 2}>
+        <Fade in={value === 2} timeout={800}>
           <Typography> Item Three</Typography>
         </Fade>
       </CustomTabPanel>

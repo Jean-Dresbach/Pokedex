@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { Box, Divider, useTheme } from "@mui/material"
+import { Box, Divider } from "@mui/material"
 
 import { Filter, Pagination, PokemonsList } from "../components/Home"
 import { useAppDispatch, listPokemons, useAppSelector } from "../redux"
@@ -7,7 +7,6 @@ import { useAppDispatch, listPokemons, useAppSelector } from "../redux"
 export function Home() {
   const dispatch = useAppDispatch()
   const filter = useAppSelector(state => state.filter)
-  const theme = useTheme()
 
   useEffect(() => {
     dispatch(listPokemons(filter))
@@ -19,8 +18,7 @@ export function Home() {
       sx={{
         width: "100%",
         height: "100%",
-        p: 3,
-        backgroundColor: theme.palette.background.default
+        p: 3
       }}>
       <Divider sx={{ mb: 3 }} />
 

@@ -1,36 +1,13 @@
-import { SyntheticEvent, useEffect, useState } from "react"
-import { Box, Fade, Tab, Tabs, Typography } from "@mui/material"
+import { useEffect, useState } from "react"
+import { Box, CircularProgress, Typography } from "@mui/material"
 
-import { Pokemon } from "../../../../types/pokemon"
-import { About } from "./About"
-
-interface TabPanelProps {
-  children?: React.ReactNode
-  index: number
-  value: number
-}
-
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}>
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
-  )
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`
-  }
-}
+import { Pokemon, PokemonSpecie } from "../../../../types/pokemon"
+import { fetchPokemonData } from "../../../../services/api"
+import { getFlavorText } from "../../../../types/pokemonModal"
+import { capitalizeWord } from "../../../../utilities/captalizeWord"
+import { InfoCards } from "./InfoCards"
+import { Breeding } from "./Breeding"
+import { PokemonFormCard } from "./PokemonFormCard"
 
 interface DetailedInfoProps {
   pokemonData: Pokemon
@@ -38,47 +15,85 @@ interface DetailedInfoProps {
 }
 
 export function DetailedInfo({ pokemonData, showShiny }: DetailedInfoProps) {
-  const [value, setValue] = useState(0)
-  const [renderKey, setRenderKey] = useState(0)
+  const [pokemonSpecieData, setPokemonSpecieData] =
+    useState<PokemonSpecie | null>(null)
 
   useEffect(() => {
-    setRenderKey(prevKey => prevKey + 1)
-  }, [pokemonData])
+    const handleGetPokemonData = async () => {
+      const result = (await fetchPokemonData(
+        pokemonData.species.url
+      )) as PokemonSpecie
+      setPokemonSpecieData(result)
+    }
 
-  const handleChange = (_: SyntheticEvent, newValue: number) => {
-    setValue(newValue)
+    handleGetPokemonData()
+  }, [pokemonData.species.url])
+
+  if (!pokemonSpecieData) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
+        <CircularProgress />
+      </Box>
+    )
   }
+
+  const flavorText = getFlavorText(pokemonSpecieData)
+
   return (
     <Box
       sx={{
         flexGrow: 1,
         zIndex: 0,
-        p: 3
+        p: 6,
+        display: "flex",
+        flexDirection: "column",
+        gap: 3
       }}>
-      <Tabs value={value} onChange={handleChange} centered>
-        <Tab label="About" {...a11yProps(0)} />
-        <Tab label="Base Stats" {...a11yProps(1)} />
-        <Tab label="Evolution" {...a11yProps(2)} />
-      </Tabs>
+      <Box sx={{ wordBreak: "keep-all", textAlign: "justify" }}>
+        <Typography sx={{ fontStyle: "italic", textAlign: "justify" }}>
+          "{flavorText.text}"
+        </Typography>
 
-      <CustomTabPanel value={value} index={0} key={renderKey}>
-        <Fade in={value === 0} timeout={800}>
-          <Box sx={{ height: "100%" }}>
-            <About pokemonData={pokemonData} showShiny={showShiny} />
+        <Typography sx={{ fontWeight: 600, textAlign: "end" }}>
+          {` (Pokémon ${capitalizeWord(flavorText.versionName)})`}
+        </Typography>
+      </Box>
+
+      <InfoCards
+        pokemonData={pokemonData}
+        pokemonSpecieData={pokemonSpecieData}
+      />
+
+      <Breeding pokemonSpecieData={pokemonSpecieData} />
+
+      {pokemonSpecieData.varieties.length > 1 && (
+        <Box>
+          <Typography variant="h6">Forms:</Typography>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 2,
+              alignItems: "center",
+              justifyContent: "space-evenly"
+            }}>
+            {pokemonSpecieData.varieties.map(v => (
+              <PokemonFormCard
+                key={v.pokemon.name}
+                url={v.pokemon.url}
+                showShiny={showShiny}
+                pokemonOnDisplay={pokemonData}
+              />
+            ))}
           </Box>
-        </Fade>
-      </CustomTabPanel>
-
-      <CustomTabPanel value={value} index={1} key={renderKey + 1}>
-        <Fade in={value === 1} timeout={800}>
-          <Typography> Item Two</Typography>
-        </Fade>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2} key={renderKey + 2}>
-        <Fade in={value === 2} timeout={800}>
-          <Typography> Item Three</Typography>
-        </Fade>
-      </CustomTabPanel>
+        </Box>
+      )}
     </Box>
   )
 }

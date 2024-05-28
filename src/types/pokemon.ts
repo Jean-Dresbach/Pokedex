@@ -118,6 +118,7 @@ export interface PokemonSpecie {
   flavor_text_entries: FlavorTextEntrie[]
   gender_rate: number
   habitat: NamedAPIResource
+  hatch_counter: number
   varieties: Varietie[]
 }
 

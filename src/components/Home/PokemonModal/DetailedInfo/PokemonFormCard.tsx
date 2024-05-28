@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
-import { Box, CircularProgress } from "@mui/material"
+import { Box, CircularProgress, useTheme } from "@mui/material"
 
-import { openPokemonModal, useAppDispatch } from "../../../../../redux"
-import { fetchPokemonData } from "../../../../../services/api"
-import { Pokemon } from "../../../../../types/pokemon"
-import pokeballImg from "../../../../../assets/pokeball-primary.png"
+import { openPokemonModal, useAppDispatch } from "../../../../redux"
+import { fetchPokemonData } from "../../../../services/api"
+import { Pokemon } from "../../../../types/pokemon"
+import pokeballImg from "../../../../assets/pokeball-primary.png"
 import { HideImage } from "@mui/icons-material"
 
 interface PokemonVarietyCardProps {
@@ -13,11 +13,12 @@ interface PokemonVarietyCardProps {
   pokemonOnDisplay: Pokemon
 }
 
-export function PokemonVarietyCard({
+export function PokemonFormCard({
   url,
   showShiny,
   pokemonOnDisplay
 }: PokemonVarietyCardProps) {
+  const theme = useTheme()
   const dispatch = useAppDispatch()
 
   const [pokemonData, setPokemonData] = useState<Pokemon | null>(null)
@@ -61,7 +62,11 @@ export function PokemonVarietyCard({
         cursor: "pointer",
         "&:hover .pokemon": {
           transform: "scale(1.1)",
-          filter: "drop-shadow(8px 8px 0 rgba(0, 0, 0, .5))"
+          filter: `drop-shadow(8px 8px 0 ${
+            theme.palette.mode === "light"
+              ? "rgba(0, 0, 0, .5)"
+              : "rgba(255,255,255,0.3)"
+          })`
         }
       }
     }

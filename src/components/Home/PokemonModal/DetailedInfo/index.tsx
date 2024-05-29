@@ -69,6 +69,10 @@ export function DetailedInfo({ pokemonData, showShiny }: DetailedInfoProps) {
         </Typography>
       </Box>
 
+      <Box>
+        <BarChart
+      </Box>
+
       <InfoCards
         pokemonData={pokemonData}
         pokemonSpecieData={pokemonSpecieData}

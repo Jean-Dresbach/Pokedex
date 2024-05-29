@@ -1,5 +1,12 @@
-import { useEffect, useState } from "react"
-import { Box, CircularProgress, Modal, Slide, useTheme } from "@mui/material"
+import { useCallback, useEffect, useState } from "react"
+import {
+  Box,
+  CircularProgress,
+  Fade,
+  Modal,
+  Slide,
+  useTheme
+} from "@mui/material"
 
 import {
   useAppSelector,
@@ -18,26 +25,33 @@ export function PokemonModal() {
   const { isOpen, url } = useAppSelector(state => state.pokemonModal)
 
   const [pokemonData, setPokemonData] = useState<Pokemon | null>(null)
-
+  const [fadeIn, setFadeIn] = useState(false)
   const [showShiny, setShowShiny] = useState(false)
 
+  console.log("foi carregado")
+
   useEffect(() => {
+    setFadeIn(false)
     if (isOpen) {
       const handleGetPokemonData = async () => {
         const result = (await fetchPokemonData(url)) as Pokemon
 
         setPokemonData(result)
+        setFadeIn(true)
       }
 
       handleGetPokemonData()
     }
   }, [isOpen, url])
 
-  const toggleShowShiny = () => {
+  const toggleShowShiny = useCallback(() => {
     setShowShiny(prev => !prev)
-  }
+  }, [])
 
-  const handleClose = () => dispatch(closePokemonModal())
+  const handleClose = useCallback(
+    () => dispatch(closePokemonModal()),
+    [dispatch]
+  )
 
   return (
     <Modal
@@ -93,7 +107,14 @@ export function PokemonModal() {
                 url={url}
               />
 
-              <DetailedInfo pokemonData={pokemonData} showShiny={showShiny} />
+              <Fade in={fadeIn}>
+                <Box sx={{ flexGrow: 1 }}>
+                  <DetailedInfo
+                    pokemonData={pokemonData}
+                    showShiny={showShiny}
+                  />
+                </Box>
+              </Fade>
             </Box>
           )}
         </Box>

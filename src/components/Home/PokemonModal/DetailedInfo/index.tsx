@@ -23,6 +23,7 @@ export function DetailedInfo({ pokemonData, showShiny }: DetailedInfoProps) {
       const result = (await fetchPokemonData(
         pokemonData.species.url
       )) as PokemonSpecie
+
       setPokemonSpecieData(result)
     }
 
@@ -35,7 +36,8 @@ export function DetailedInfo({ pokemonData, showShiny }: DetailedInfoProps) {
         sx={{
           display: "flex",
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
+          height: "100%"
         }}>
         <CircularProgress />
       </Box>

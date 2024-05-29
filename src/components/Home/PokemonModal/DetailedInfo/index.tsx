@@ -8,6 +8,7 @@ import { capitalizeWord } from "../../../../utilities/captalizeWord"
 import { InfoCards } from "./InfoCards"
 import { Breeding } from "./Breeding"
 import { PokemonFormCard } from "./PokemonFormCard"
+import { Training } from "./Training"
 
 interface DetailedInfoProps {
   pokemonData: Pokemon
@@ -15,8 +16,11 @@ interface DetailedInfoProps {
 }
 
 export function DetailedInfo({ pokemonData, showShiny }: DetailedInfoProps) {
+  const [flavorText, setFlavorText] = useState({ text: "", versionName: "" })
   const [pokemonSpecieData, setPokemonSpecieData] =
     useState<PokemonSpecie | null>(null)
+
+  console.log(pokemonData)
 
   useEffect(() => {
     const handleGetPokemonData = async () => {
@@ -25,6 +29,7 @@ export function DetailedInfo({ pokemonData, showShiny }: DetailedInfoProps) {
       )) as PokemonSpecie
 
       setPokemonSpecieData(result)
+      setFlavorText(getFlavorText(result))
     }
 
     handleGetPokemonData()
@@ -44,8 +49,6 @@ export function DetailedInfo({ pokemonData, showShiny }: DetailedInfoProps) {
     )
   }
 
-  const flavorText = getFlavorText(pokemonSpecieData)
-
   return (
     <Box
       sx={{
@@ -56,7 +59,7 @@ export function DetailedInfo({ pokemonData, showShiny }: DetailedInfoProps) {
         flexDirection: "column",
         gap: 3
       }}>
-      <Box sx={{ wordBreak: "keep-all", textAlign: "justify" }}>
+      <Box sx={{ wordBreak: "keep-all", textAlign: "justify", mb: 3 }}>
         <Typography sx={{ fontStyle: "italic", textAlign: "justify" }}>
           "{flavorText.text}"
         </Typography>
@@ -71,7 +74,18 @@ export function DetailedInfo({ pokemonData, showShiny }: DetailedInfoProps) {
         pokemonSpecieData={pokemonSpecieData}
       />
 
-      <Breeding pokemonSpecieData={pokemonSpecieData} />
+      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, mt: 3 }}>
+        <Box sx={{ flexGrow: 1 }}>
+          <Training
+            pokemonSpecieData={pokemonSpecieData}
+            pokemonData={pokemonData}
+          />
+        </Box>
+
+        <Box sx={{ flexGrow: 1 }}>
+          <Breeding pokemonSpecieData={pokemonSpecieData} />
+        </Box>
+      </Box>
 
       {pokemonSpecieData.varieties.length > 1 && (
         <Box>

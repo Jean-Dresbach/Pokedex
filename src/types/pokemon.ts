@@ -61,6 +61,7 @@ export interface FetchPokemons {
 }
 
 export interface Pokemon {
+  base_experience: number
   id: number
   name: string
   height: number
@@ -110,6 +111,8 @@ export interface PokemonType {
 }
 
 export interface PokemonSpecie {
+  base_happiness: number
+  capture_rate: number
   egg_groups: NamedAPIResource[]
   growth_rate: NamedAPIResource
   evolution_chain: {

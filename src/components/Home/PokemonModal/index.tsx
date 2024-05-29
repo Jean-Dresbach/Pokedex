@@ -28,8 +28,6 @@ export function PokemonModal() {
   const [fadeIn, setFadeIn] = useState(false)
   const [showShiny, setShowShiny] = useState(false)
 
-  console.log("foi carregado")
-
   useEffect(() => {
     setFadeIn(false)
     if (isOpen) {
@@ -37,7 +35,7 @@ export function PokemonModal() {
         const result = (await fetchPokemonData(url)) as Pokemon
 
         setPokemonData(result)
-        setFadeIn(true)
+        setTimeout(() => setFadeIn(true), 300)
       }
 
       handleGetPokemonData()

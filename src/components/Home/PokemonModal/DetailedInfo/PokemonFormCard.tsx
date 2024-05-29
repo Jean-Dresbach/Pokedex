@@ -4,8 +4,8 @@ import { Box, CircularProgress, useTheme } from "@mui/material"
 import { openPokemonModal, useAppDispatch } from "../../../../redux"
 import { fetchPokemonData } from "../../../../services/api"
 import { Pokemon } from "../../../../types/pokemon"
-import pokeballImg from "../../../../assets/pokeball-primary.png"
 import { HideImage } from "@mui/icons-material"
+import pokeballImg from "../../../../assets/pokeball-primary.png"
 
 interface PokemonVarietyCardProps {
   url: string
@@ -54,7 +54,8 @@ export function PokemonFormCard({
     if (pokemonOnDisplay.id === pokemonData.id) {
       return {
         "& img": {
-          filter: "grayscale(100%)"
+          filter: "grayscale(100%)",
+          transition: "all .3s ease"
         }
       }
     } else {
@@ -66,7 +67,8 @@ export function PokemonFormCard({
             theme.palette.mode === "light"
               ? "rgba(0, 0, 0, .5)"
               : "rgba(255,255,255,0.3)"
-          })`
+          })`,
+          transition: "all .3s ease"
         }
       }
     }
@@ -77,6 +79,7 @@ export function PokemonFormCard({
       onClick={handleOpenPokemonModal}
       sx={{
         position: "relative",
+        zIndex: 1,
         width: "max-content",
         ...handleIsChosen()
       }}>

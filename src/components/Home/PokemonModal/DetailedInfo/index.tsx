@@ -9,6 +9,7 @@ import { InfoCards } from "./InfoCards"
 import { Breeding } from "./Breeding"
 import { PokemonFormCard } from "./PokemonFormCard"
 import { Training } from "./Training"
+import { BaseStats } from "./BaseStats"
 
 interface DetailedInfoProps {
   pokemonData: Pokemon
@@ -17,10 +18,9 @@ interface DetailedInfoProps {
 
 export function DetailedInfo({ pokemonData, showShiny }: DetailedInfoProps) {
   const [flavorText, setFlavorText] = useState({ text: "", versionName: "" })
+
   const [pokemonSpecieData, setPokemonSpecieData] =
     useState<PokemonSpecie | null>(null)
-
-  console.log(pokemonData)
 
   useEffect(() => {
     const handleGetPokemonData = async () => {
@@ -33,7 +33,7 @@ export function DetailedInfo({ pokemonData, showShiny }: DetailedInfoProps) {
     }
 
     handleGetPokemonData()
-  }, [pokemonData.species.url])
+  }, [pokemonData.species.url, pokemonData.stats])
 
   if (!pokemonSpecieData) {
     return (
@@ -63,20 +63,22 @@ export function DetailedInfo({ pokemonData, showShiny }: DetailedInfoProps) {
         <Typography sx={{ fontStyle: "italic", textAlign: "justify" }}>
           "{flavorText.text}"
         </Typography>
-
         <Typography sx={{ fontWeight: 600, textAlign: "end" }}>
           {` (Pokémon ${capitalizeWord(flavorText.versionName)})`}
         </Typography>
       </Box>
-
-      <Box>
-        <BarChart
-      </Box>
-
       <InfoCards
         pokemonData={pokemonData}
         pokemonSpecieData={pokemonSpecieData}
       />
+
+      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, mt: 3 }}>
+        <Box sx={{ flexGrow: 1 }}>
+          <BaseStats pokemonData={pokemonData} />
+        </Box>
+
+        <Box sx={{ flexGrow: 1 }}></Box>
+      </Box>
 
       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, mt: 3 }}>
         <Box sx={{ flexGrow: 1 }}>
@@ -94,7 +96,6 @@ export function DetailedInfo({ pokemonData, showShiny }: DetailedInfoProps) {
       {pokemonSpecieData.varieties.length > 1 && (
         <Box>
           <Typography variant="h6">Forms:</Typography>
-
           <Box
             sx={{
               display: "flex",

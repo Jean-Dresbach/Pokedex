@@ -55,7 +55,7 @@ export function PokemonFormCard({
       return {
         "& img": {
           filter: "grayscale(100%)",
-          transition: "all .3s ease"
+          transition: "all .3s linear"
         }
       }
     } else {
@@ -68,7 +68,7 @@ export function PokemonFormCard({
               ? "rgba(0, 0, 0, .5)"
               : "rgba(255,255,255,0.3)"
           })`,
-          transition: "all .3s ease"
+          transition: "all .3s linear"
         }
       }
     }

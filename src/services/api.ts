@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios"
 
-import {
-  FetchPokemonData,
-  FetchPokemons,
-  NamedAPIResource
-} from "../types/pokemon"
+import { FetchPokemons, NamedAPIResource } from "../types/pokemon"
 import { Filter } from "../types/filter"
 
 const api = axios.create({
@@ -67,9 +63,7 @@ export const fetchPokemonsList = async (
   }
 }
 
-export const fetchPokemonData = async (
-  url: string
-): Promise<FetchPokemonData> => {
+export const fetchPokemonData = async (url: string): Promise<any> => {
   try {
     const response = await api.get(url)
 

@@ -66,64 +66,66 @@ export function BaseStats({ pokemonData }: BaseStatsProps) {
   const barColor = handleBarColor()
 
   return (
-    <>
+    <div>
       <Typography variant="h6" gutterBottom>
         Base Stats:
       </Typography>
 
       <table>
-        {statsValues.map(sv => (
-          <tr key={sv.name}>
-            <th>
-              <Typography
-                sx={{
-                  minWidth: "max-content",
-                  textAlign: "start",
-                  color: theme.palette.text.disabled,
-                  fontWeight: 600,
-                  mr: 2
-                }}>
-                {sv.name}
-              </Typography>
-            </th>
+        <tbody>
+          {statsValues.map(sv => (
+            <tr key={sv.name}>
+              <th>
+                <Typography
+                  sx={{
+                    minWidth: "max-content",
+                    textAlign: "start",
+                    color: theme.palette.text.disabled,
+                    fontWeight: 600,
+                    mr: 2
+                  }}>
+                  {sv.name}
+                </Typography>
+              </th>
 
-            <th
-              style={{
-                textAlign: "end",
-                fontWeight: "normal",
-                paddingRight: "16px"
-              }}>
-              {sv.value}
-            </th>
-
-            <th style={{ width: "100%" }}>
-              <Box
-                sx={{
-                  position: "relative",
-                  width: "100%",
-                  borderRadius: "100vw",
-                  height: 5,
-                  bgcolor: grey[300]
+              <th
+                style={{
+                  textAlign: "end",
+                  fontWeight: "normal",
+                  paddingRight: "16px"
                 }}>
+                {sv.value}
+              </th>
+
+              <th style={{ width: "100%" }}>
                 <Box
                   sx={{
-                    position: "absolute",
-                    top: 0,
-                    bottom: 0,
-                    left: 0,
+                    position: "relative",
+                    width: "100%",
                     borderRadius: "100vw",
-                    background: barColor,
-                    width: barTransition
-                      ? `${getWidthPercentage(sv.value, sv.maxValue)}%`
-                      : 0,
-                    transition: barTransition ? "width 1s ease" : ""
-                  }}
-                />
-              </Box>
-            </th>
-          </tr>
-        ))}
+                    height: 5,
+                    bgcolor: grey[300]
+                  }}>
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: 0,
+                      bottom: 0,
+                      left: 0,
+                      borderRadius: "100vw",
+                      background: barColor,
+                      width: barTransition
+                        ? `${getWidthPercentage(sv.value, sv.maxValue)}%`
+                        : 0,
+                      transition: barTransition ? "width 1s ease" : ""
+                    }}
+                  />
+                </Box>
+              </th>
+            </tr>
+          ))}
+        </tbody>
       </table>
-    </>
+    </div>
   )
 }

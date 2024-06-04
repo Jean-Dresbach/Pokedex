@@ -33,7 +33,7 @@ export function DetailedInfo({ pokemonData, showShiny }: DetailedInfoProps) {
     }
 
     handleGetPokemonData()
-  }, [pokemonData.species.url, pokemonData.stats])
+  }, [pokemonData.species.url])
 
   if (!pokemonSpecieData) {
     return (
@@ -72,13 +72,7 @@ export function DetailedInfo({ pokemonData, showShiny }: DetailedInfoProps) {
         pokemonSpecieData={pokemonSpecieData}
       />
 
-      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, mt: 3 }}>
-        <Box sx={{ flexGrow: 1 }}>
-          <BaseStats pokemonData={pokemonData} />
-        </Box>
-
-        <Box sx={{ flexGrow: 1 }}></Box>
-      </Box>
+      <BaseStats pokemonData={pokemonData} />
 
       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, mt: 3 }}>
         <Box sx={{ flexGrow: 1 }}>

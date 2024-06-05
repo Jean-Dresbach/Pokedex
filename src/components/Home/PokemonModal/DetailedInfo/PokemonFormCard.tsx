@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
-import { Box, CircularProgress, useTheme } from "@mui/material"
+import { Box, CircularProgress, Tooltip, useTheme } from "@mui/material"
 
 import { openPokemonModal, useAppDispatch } from "../../../../redux"
 import { fetchPokemonData } from "../../../../services/api"
 import { Pokemon } from "../../../../types/pokemon"
 import { HideImage } from "@mui/icons-material"
 import pokeballImg from "../../../../assets/pokeball-primary.png"
+import { capitalizeWord } from "../../../../utilities/captalizeWord"
 
 interface PokemonVarietyCardProps {
   url: string
@@ -83,8 +84,15 @@ export function PokemonFormCard({
         width: "max-content",
         ...handleIsChosen()
       }}>
-      {pokemonData.sprites.other["official-artwork"].front_default ? (
-        <>
+      <Tooltip
+        title={
+          pokemonOnDisplay.id === pokemonData.id
+            ? ""
+            : capitalizeWord(pokemonData.name)
+        }
+        placement="bottom"
+        arrow>
+        {pokemonData.sprites.other["official-artwork"].front_default ? (
           <img
             className="pokemon"
             src={
@@ -96,22 +104,22 @@ export function PokemonFormCard({
             }
             style={{ width: 150 }}
           />
+        ) : (
+          <HideImage sx={{ fontSize: 100, m: 3 }} />
+        )}
+      </Tooltip>
 
-          <img
-            src={pokeballImg}
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%,-50%)",
-              opacity: 0.5,
-              zIndex: -1
-            }}
-          />
-        </>
-      ) : (
-        <HideImage sx={{ fontSize: 100, m: 3 }} />
-      )}
+      <img
+        src={pokeballImg}
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%,-50%)",
+          opacity: 0.5,
+          zIndex: -1
+        }}
+      />
     </Box>
   )
 }

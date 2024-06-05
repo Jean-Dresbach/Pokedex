@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Box, Slide, useTheme } from "@mui/material"
+import { Box, Slide, Tooltip, useTheme } from "@mui/material"
 
 import { openPokemonModal, useAppDispatch } from "../../../../redux"
 import { fetchPokemonData } from "../../../../services/api"
@@ -12,6 +12,7 @@ import { Pokemon } from "../../../../types/pokemon"
 import pokeballWhite from "../../../../assets/pokeball-white.png"
 import pokeballBlack from "../../../../assets/pokeball-black.png"
 import { HideImage } from "@mui/icons-material"
+import { capitalizeWord } from "../../../../utilities/captalizeWord"
 
 interface PokemonNavProps {
   url: string
@@ -123,33 +124,43 @@ export function PokemonNav({ url, showShiny, pokemonData }: PokemonNavProps) {
 
         {prevPokemon.data && (
           <Slide direction="right" in={transition}>
-            <img
-              onClick={() => handleClicPrevNextPokemon(prevPokemon.url)}
-              src={
-                !showShiny
-                  ? prevPokemon.data.sprites.other["official-artwork"]
-                      .front_default
-                  : prevPokemon.data.sprites.other["official-artwork"]
-                      .front_shiny
-              }
-              className="pokemon-image prev"
-            />
+            <Tooltip
+              title={capitalizeWord(prevPokemon.data.name)}
+              placement="top"
+              arrow>
+              <img
+                onClick={() => handleClicPrevNextPokemon(prevPokemon.url)}
+                src={
+                  !showShiny
+                    ? prevPokemon.data.sprites.other["official-artwork"]
+                        .front_default
+                    : prevPokemon.data.sprites.other["official-artwork"]
+                        .front_shiny
+                }
+                className="pokemon-image prev"
+              />
+            </Tooltip>
           </Slide>
         )}
 
         {nextPokemon.data && (
           <Slide direction="left" in={transition}>
-            <img
-              onClick={() => handleClicPrevNextPokemon(nextPokemon.url)}
-              src={
-                !showShiny
-                  ? nextPokemon.data.sprites.other["official-artwork"]
-                      .front_default
-                  : nextPokemon.data.sprites.other["official-artwork"]
-                      .front_shiny
-              }
-              className="pokemon-image next"
-            />
+            <Tooltip
+              title={capitalizeWord(nextPokemon.data.name)}
+              placement="top"
+              arrow>
+              <img
+                onClick={() => handleClicPrevNextPokemon(nextPokemon.url)}
+                src={
+                  !showShiny
+                    ? nextPokemon.data.sprites.other["official-artwork"]
+                        .front_default
+                    : nextPokemon.data.sprites.other["official-artwork"]
+                        .front_shiny
+                }
+                className="pokemon-image next"
+              />
+            </Tooltip>
           </Slide>
         )}
       </Box>

@@ -1,7 +1,27 @@
-import { Box, Typography, useTheme } from "@mui/material"
+import {
+  Box,
+  Tooltip,
+  TooltipProps,
+  Typography,
+  styled,
+  tooltipClasses,
+  useTheme
+} from "@mui/material"
 import { PokemonSpecie } from "../../../../types/pokemon"
-import { FemaleRounded, MaleRounded } from "@mui/icons-material"
+import {
+  FemaleRounded,
+  HelpOutlineRounded,
+  MaleRounded
+} from "@mui/icons-material"
 import { capitalizeWord } from "../../../../utilities/captalizeWord"
+
+const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    maxWidth: 150
+  }
+})
 
 interface BreedingProps {
   pokemonSpecieData: PokemonSpecie
@@ -55,8 +75,20 @@ export function Breeding({ pokemonSpecieData }: BreedingProps) {
         </Typography>
       </Typography>
 
-      <Typography sx={{ color: theme.palette.text.disabled, fontWeight: 600 }}>
-        Hatch time
+      <Typography
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          color: theme.palette.text.disabled,
+          fontWeight: 600
+        }}>
+        Hatch counter
+        <CustomWidthTooltip
+          title="Initial hatch counter: one must walk Y × (hatch_counter + 1) steps before this Pokémon's egg hatches, unless utilizing bonuses like Flame Body's. Y varies per generation."
+          placement="right"
+          arrow>
+          <HelpOutlineRounded sx={{ ml: 1 }} />
+        </CustomWidthTooltip>
         <Typography
           component="span"
           sx={{ ml: 2, color: theme.palette.text.primary }}>

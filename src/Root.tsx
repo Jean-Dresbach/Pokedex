@@ -1,4 +1,6 @@
 import {
+  Box,
+  Container,
   CssBaseline,
   ThemeProvider,
   createTheme,
@@ -7,7 +9,9 @@ import {
 
 import { useAppSelector } from "./redux"
 import { BackGround } from "./components/BackGround"
-import { Router } from "./routes/Router"
+import { Footer } from "./components/Footer"
+import { Header } from "./components"
+import { Home } from "./pages/Home"
 
 export function Root() {
   const currentTheme = useAppSelector(state => state.theme) as "light" | "dark"
@@ -57,8 +61,33 @@ export function Root() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+
       <BackGround>
-        <Router />
+        <Box
+          sx={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 3
+          }}>
+          <Container
+            maxWidth="md"
+            sx={{
+              padding: "0 !important",
+              overflow: "hidden",
+              overflowY: "auto",
+              backgroundColor: theme.palette.background.default,
+              display: "flex",
+              flexDirection: "column",
+              height: "100%"
+            }}>
+            <Header />
+            <Box sx={{ flexGrow: 1 }}>
+              <Home />
+            </Box>
+
+            <Footer />
+          </Container>
+        </Box>
       </BackGround>
     </ThemeProvider>
   )

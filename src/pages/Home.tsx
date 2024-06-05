@@ -20,8 +20,6 @@ export function Home() {
         height: "100%",
         p: 3
       }}>
-      <Divider sx={{ mb: 3 }} />
-
       <Pagination />
 
       <Divider sx={{ my: 3 }} />

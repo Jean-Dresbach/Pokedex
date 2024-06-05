@@ -103,8 +103,9 @@ export function BaseStats({ pokemonData }: BaseStatsProps) {
                     position: "relative",
                     width: "100%",
                     borderRadius: "100vw",
-                    height: 5,
-                    bgcolor: grey[300]
+                    height: 10,
+                    bgcolor:
+                      theme.palette.mode === "light" ? grey[300] : grey[800]
                   }}>
                   <Box
                     sx={{

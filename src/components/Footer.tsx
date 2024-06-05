@@ -11,7 +11,8 @@ export function Footer() {
     window.open("https://www.linkedin.com/in/jean-rafael-dresbach", "_blank")
   }
 
-  const iconColor = theme.palette.mode === "light" ? "black" : "white"
+  const iconColor =
+    theme.palette.mode === "light" ? theme.palette.text.disabled : "white"
 
   return (
     <Box

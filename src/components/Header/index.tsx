@@ -1,10 +1,7 @@
-import { Outlet } from "react-router-dom"
-import { Box, Container, Typography, useTheme } from "@mui/material"
+import { Box, Typography, useTheme } from "@mui/material"
 
 import { ToggleThemeButton } from "./ToggleThemeButton"
-import { Nav } from "./Nav"
 import { SearchEl } from "./SearchEl"
-import { Footer } from "../Footer"
 import pokeballWhite from "../../assets/pokeball-white.png"
 import pokeballBlack from "../../assets/pokeball-black.png"
 
@@ -13,77 +10,50 @@ export function Header() {
 
   return (
     <Box
+      component="header"
       sx={{
-        position: "absolute",
-        inset: 0,
-        zIndex: 3
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        maxHeight: "max-content",
+        borderRadius: "0 0 32px 32px",
+        backgroundColor:
+          theme.palette.mode === "light"
+            ? theme.palette.grey[400]
+            : theme.palette.grey[900],
+        p: 3,
+        py: 5
       }}>
-      <Container
-        maxWidth="md"
+      <Typography
+        component="h1"
         sx={{
-          padding: "0 !important",
-          overflow: "hidden",
-          overflowY: "auto",
-          backgroundColor: theme.palette.background.default,
-          display: "flex",
-          flexDirection: "column",
-          height: "100%"
+          fontWeight: 500,
+          zIndex: 3,
+          mb: 3,
+          fontSize: "clamp(20px, 5vw, 30px)"
         }}>
-        <Box
-          component="header"
-          sx={{
-            position: "relative",
-            display: "flex",
-            flexDirection: "column",
-            maxHeight: "max-content",
-            borderRadius: "0 0 32px 32px",
-            backgroundColor:
-              theme.palette.mode === "light"
-                ? theme.palette.grey[400]
-                : theme.palette.grey[900],
-            p: 3,
-            py: 5
-          }}>
-          <Typography
-            component="h1"
-            sx={{
-              fontWeight: 500,
-              zIndex: 3,
-              mb: 3,
-              fontSize: "clamp(20px, 5vw, 30px)"
-            }}>
-            Which Pokémon
-            <br />
-            are you looking for?
-          </Typography>
+        Which Pokémon
+        <br />
+        are you looking for?
+      </Typography>
 
-          <Box sx={{ position: "absolute", top: 39, right: 25 }}>
-            <ToggleThemeButton />
-          </Box>
+      <Box sx={{ position: "absolute", top: 39, right: 25 }}>
+        <ToggleThemeButton />
+      </Box>
 
-          <SearchEl />
+      <SearchEl />
 
-          <img
-            src={theme.palette.mode === "light" ? pokeballWhite : pokeballBlack}
-            style={{
-              height: "250px",
-              width: "250px",
-              opacity: 0.3,
-              position: "absolute",
-              top: "-73px",
-              right: "-88px"
-            }}
-          />
-        </Box>
-
-        <Nav />
-
-        <Box sx={{ flexGrow: 1 }}>
-          <Outlet />
-        </Box>
-
-        <Footer />
-      </Container>
+      <img
+        src={theme.palette.mode === "light" ? pokeballWhite : pokeballBlack}
+        style={{
+          height: "250px",
+          width: "250px",
+          opacity: 0.3,
+          position: "absolute",
+          top: "-73px",
+          right: "-88px"
+        }}
+      />
     </Box>
   )
 }

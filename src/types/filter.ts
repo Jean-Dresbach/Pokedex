@@ -159,4 +159,5 @@ export const generationsData: GenerationInfo[] = [
 export interface Filter {
   generation: GenerationInfo
   type: TypeWithAll
+  onlyFavorites: boolean
 }

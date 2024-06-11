@@ -8,6 +8,8 @@ export function PokemonsList() {
   const viewWidth = useMediaQuery("(min-width:445px)")
   const pokemons = useAppSelector(state => state.pokemons)
   const pagination = useAppSelector(state => state.pagination)
+  const favorites = useAppSelector(state => state.favorites)
+  const filter = useAppSelector(state => state.filter)
 
   return (
     <>

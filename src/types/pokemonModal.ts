@@ -8,6 +8,7 @@ export interface PokemonModal {
 export interface PrevNextPokemon {
   url: string
   data: Pokemon | null
+  isToolTipOpen: boolean
 }
 
 export const getPokemonIdFromUrl = (url: string): number => {

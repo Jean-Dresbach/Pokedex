@@ -5,7 +5,8 @@ import { Type, Generations } from "../../types/pokemon"
 
 const initialState: Filter = {
   type: "all",
-  generation: generationsData[0]
+  generation: generationsData[0],
+  onlyFavorites: false
 }
 
 export const filterSlice = createSlice({
@@ -20,9 +21,13 @@ export const filterSlice = createSlice({
         genDta => genDta.name === action.payload
       )
       return { ...state, generation: generationsData[index] }
+    },
+    toggleOnlyFavorites(state) {
+      return { ...state, onlyFavorites: !state.onlyFavorites }
     }
   }
 })
 
-export const { setType, setGeneration } = filterSlice.actions
+export const { setType, setGeneration, toggleOnlyFavorites } =
+  filterSlice.actions
 export default filterSlice.reducer

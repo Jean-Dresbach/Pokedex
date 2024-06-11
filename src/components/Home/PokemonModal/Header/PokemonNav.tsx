@@ -22,7 +22,8 @@ interface PokemonNavProps {
 
 const prevNextInitialState: PrevNextPokemon = {
   url: "",
-  data: null
+  data: null,
+  isToolTipOpen: false
 }
 
 export function PokemonNav({ url, showShiny, pokemonData }: PokemonNavProps) {
@@ -45,11 +46,13 @@ export function PokemonNav({ url, showShiny, pokemonData }: PokemonNavProps) {
       isPrev
         ? setPrevPokemon({
             url: url,
-            data: result
+            data: result,
+            isToolTipOpen: false
           })
         : setNextPokemon({
             url: url,
-            data: result
+            data: result,
+            isToolTipOpen: false
           })
     }
 
@@ -76,6 +79,8 @@ export function PokemonNav({ url, showShiny, pokemonData }: PokemonNavProps) {
   }, [pokemonData.id, pokemonData.species.url, url])
 
   const handleClicPrevNextPokemon = (url: string) => {
+    setPrevPokemon(prev => ({ ...prev, isToolTipOpen: false }))
+    setNextPokemon(prev => ({ ...prev, isToolTipOpen: false }))
     setTrasition(false)
     setTimeout(() => {
       dispatch(openPokemonModal(url))
@@ -125,6 +130,13 @@ export function PokemonNav({ url, showShiny, pokemonData }: PokemonNavProps) {
         {prevPokemon.data && (
           <Slide direction="right" in={transition}>
             <Tooltip
+              open={prevPokemon.isToolTipOpen}
+              onOpen={() =>
+                setPrevPokemon(prev => ({ ...prev, isToolTipOpen: true }))
+              }
+              onClose={() =>
+                setPrevPokemon(prev => ({ ...prev, isToolTipOpen: false }))
+              }
               title={capitalizeWord(prevPokemon.data.name)}
               placement="top"
               arrow>
@@ -146,6 +158,13 @@ export function PokemonNav({ url, showShiny, pokemonData }: PokemonNavProps) {
         {nextPokemon.data && (
           <Slide direction="left" in={transition}>
             <Tooltip
+              open={nextPokemon.isToolTipOpen}
+              onOpen={() =>
+                setNextPokemon(prev => ({ ...prev, isToolTipOpen: true }))
+              }
+              onClose={() =>
+                setNextPokemon(prev => ({ ...prev, isToolTipOpen: false }))
+              }
               title={capitalizeWord(nextPokemon.data.name)}
               placement="top"
               arrow>

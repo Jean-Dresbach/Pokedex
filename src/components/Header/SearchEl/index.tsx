@@ -30,16 +30,17 @@ export function SearchEl() {
   })
 
   useEffect(() => {
-    const fetchPokemonList = async () => {
+    const fetchPokemonsListData = async () => {
       const result = await fetchPokemonsList({
         type: "all",
-        generation: generationsData[0]
+        generation: generationsData[0],
+        onlyFavorites: false
       })
 
       setSearch(prev => ({ ...prev, pokemonsList: result }))
     }
 
-    fetchPokemonList()
+    fetchPokemonsListData()
   }, [])
 
   const handleFocus = () => {

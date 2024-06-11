@@ -1,5 +1,9 @@
 import { SyntheticEvent, useState } from "react"
-import { TuneRounded } from "@mui/icons-material"
+import {
+  FavoriteRounded,
+  HeartBrokenRounded,
+  TuneRounded
+} from "@mui/icons-material"
 import {
   Box,
   Button,
@@ -17,6 +21,7 @@ import { Generations, Type, typeColor } from "../../../types/pokemon"
 import {
   setCurrentPage,
   setGeneration,
+  toggleOnlyFavorites,
   setType,
   useAppDispatch,
   useAppSelector
@@ -34,6 +39,10 @@ export function Filter() {
     setOpen(prev => !prev)
   }
 
+  const handleChangeOnlyFavorites = () => {
+    dispatch(toggleOnlyFavorites())
+  }
+
   const handleGenChange = (
     _: SyntheticEvent<Element, Event>,
     value: Generations
@@ -41,6 +50,7 @@ export function Filter() {
     dispatch(setGeneration(value))
     dispatch(setCurrentPage(1))
   }
+
   const handleTypeChange = (_: SyntheticEvent<Element, Event>, value: Type) => {
     dispatch(setType(value))
     dispatch(setCurrentPage(1))
@@ -72,6 +82,37 @@ export function Filter() {
             }}
             elevation={3}>
             <Divider sx={{ my: 2, fontSize: 25 }} textAlign="left">
+              Favorites
+            </Divider>
+
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 2,
+                py: 1.5
+              }}>
+              <Button
+                variant={filter.onlyFavorites ? "outlined" : "contained"}
+                endIcon={<HeartBrokenRounded />}
+                onClick={() =>
+                  filter.onlyFavorites ? handleChangeOnlyFavorites() : null
+                }>
+                See All
+              </Button>
+
+              <Button
+                variant={filter.onlyFavorites ? "contained" : "outlined"}
+                startIcon={<FavoriteRounded />}
+                onClick={() =>
+                  filter.onlyFavorites ? null : handleChangeOnlyFavorites()
+                }>
+                Only Favorites
+              </Button>
+            </Box>
+
+            <Divider sx={{ my: 2, fontSize: 25 }} textAlign="right">
               Generation
             </Divider>
 
@@ -98,7 +139,7 @@ export function Filter() {
               ))}
             </Tabs>
 
-            <Divider sx={{ my: 2, fontSize: 25 }} textAlign="right">
+            <Divider sx={{ my: 2, fontSize: 25 }} textAlign="left">
               Type
             </Divider>
 

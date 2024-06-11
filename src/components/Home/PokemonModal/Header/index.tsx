@@ -1,9 +1,10 @@
-import { BlurOn, FavoriteBorder, WestRounded } from "@mui/icons-material"
+import { BlurOn, WestRounded } from "@mui/icons-material"
 import { Box, IconButton, useTheme } from "@mui/material"
 
 import { Pokemon, Type, typeColor } from "../../../../types/pokemon"
 import { PokemonBasicInfo } from "./PokemonBasicInfo"
 import { PokemonNav } from "./PokemonNav"
+import { FavButton } from "../../FavButton"
 
 interface HeaderProps {
   url: string
@@ -82,7 +83,6 @@ export function Header({
               ? "rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.01)"
               : "rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.01)"
           })`,
-
           borderRadius: 10,
           rotate: "350deg"
         }}
@@ -110,9 +110,7 @@ export function Header({
           <WestRounded sx={{ color: colorOnTheme }} />
         </IconButton>
 
-        <IconButton sx={{ zIndex: 1 }}>
-          <FavoriteBorder sx={{ color: colorOnTheme }} />
-        </IconButton>
+        <FavButton name={pokemonData.name} url={url} havePadding />
       </Box>
 
       <PokemonBasicInfo

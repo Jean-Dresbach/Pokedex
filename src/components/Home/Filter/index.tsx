@@ -41,6 +41,7 @@ export function Filter() {
 
   const handleChangeOnlyFavorites = () => {
     dispatch(toggleOnlyFavorites())
+    dispatch(setCurrentPage(1))
   }
 
   const handleGenChange = (

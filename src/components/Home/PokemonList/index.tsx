@@ -11,13 +11,21 @@ export function PokemonsList() {
   const favorites = useAppSelector(state => state.favorites)
   const filter = useAppSelector(state => state.filter)
 
+  const handleSeeOnlyFavorites = () => {
+    if (filter.onlyFavorites) {
+      return favorites
+    }
+
+    return pokemons
+  }
+
   return (
     <>
       <Grid
         container
         spacing={2}
         sx={{ height: "max-content", maxWidth: viewWidth ? "auto" : 250 }}>
-        {pokemons
+        {handleSeeOnlyFavorites()
           .slice(
             (pagination.currentPage - 1) * pagination.perPage,
             pagination.currentPage * pagination.perPage

@@ -4,10 +4,15 @@ import { NamedAPIResource } from "../../types/pokemon"
 import { fetchPokemonsList } from "../../services/api"
 import { Filter } from "../../types/filter"
 
+interface ListPokemonsArgs {
+  filter: Filter
+  favorites: NamedAPIResource[]
+}
+
 export const listPokemons = createAsyncThunk(
   "pokemons/list",
-  async (filter: Filter) => {
-    const result = await fetchPokemonsList(filter)
+  async ({ filter, favorites }: ListPokemonsArgs) => {
+    const result = await fetchPokemonsList(filter, favorites)
 
     return result
   }

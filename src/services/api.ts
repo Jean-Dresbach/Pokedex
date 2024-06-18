@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios"
 
-import { FetchPokemons, NamedAPIResource } from "../types/pokemon"
+import {
+  FetchPokemons,
+  NamedAPIResource,
+  filterArrayByAnother
+} from "../types/pokemon"
 import { Filter } from "../types/filter"
 
 const api = axios.create({
@@ -9,7 +13,8 @@ const api = axios.create({
 })
 
 export const fetchPokemonsList = async (
-  filter: Filter
+  filter: Filter,
+  favorites: NamedAPIResource[]
 ): Promise<NamedAPIResource[]> => {
   try {
     let typeObj: NamedAPIResource | undefined
@@ -20,7 +25,19 @@ export const fetchPokemonsList = async (
           `/pokemon?offset=${filter.generation.offset}&limit=${filter.generation.count}`
         )
       ).data as FetchPokemons
-      return response.results
+
+      if (filter.onlyFavorites) {
+        const filteredByFavorites = filterArrayByAnother(
+          response.results,
+          favorites
+        )
+
+        console.log(filteredByFavorites)
+
+        return filteredByFavorites
+      } else {
+        return response.results
+      }
     } else {
       const resultGetTypesInfoList = await api.get("/type")
 
@@ -53,7 +70,15 @@ export const fetchPokemonsList = async (
         ) // Returns true if the ID is within the desired range
       })
 
-      return filteredArray
+      if (filter.onlyFavorites) {
+        const filteredBFavorites = filterArrayByAnother(
+          filteredArray,
+          favorites
+        )
+        return filteredBFavorites
+      } else {
+        return filteredArray
+      }
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {

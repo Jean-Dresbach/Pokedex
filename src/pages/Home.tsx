@@ -7,10 +7,11 @@ import { useAppDispatch, listPokemons, useAppSelector } from "../redux"
 export function Home() {
   const dispatch = useAppDispatch()
   const filter = useAppSelector(state => state.filter)
+  const favorites = useAppSelector(state => state.favorites)
 
   useEffect(() => {
-    dispatch(listPokemons(filter))
-  }, [dispatch, filter])
+    dispatch(listPokemons({ filter, favorites }))
+  }, [dispatch, favorites, filter])
 
   return (
     <Box
@@ -26,14 +27,7 @@ export function Home() {
 
       <Filter />
 
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          mt: 3
-        }}>
-        <PokemonsList />
-      </Box>
+      <PokemonsList />
     </Box>
   )
 }

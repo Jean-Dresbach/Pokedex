@@ -135,3 +135,16 @@ export interface Varietie {
   is_default: boolean
   pokemon: NamedAPIResource
 }
+
+export const filterArrayByAnother = (
+  array1: NamedAPIResource[],
+  array2: NamedAPIResource[]
+): NamedAPIResource[] => {
+  const namesInArray2 = new Set(array2.map(item => item.name)) // Creates a set (Set) with the names of the objects in the second array
+
+  const filteredArray = array1.filter(item => namesInArray2.has(item.name)) // Filter the first array, keeping only objects whose name is in the set
+
+  console.log(filteredArray)
+
+  return filteredArray
+}

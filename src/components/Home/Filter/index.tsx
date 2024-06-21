@@ -1,9 +1,5 @@
 import { SyntheticEvent, useState } from "react"
-import {
-  FavoriteRounded,
-  HeartBrokenRounded,
-  TuneRounded
-} from "@mui/icons-material"
+import { Favorite, HeartBroken, TuneRounded } from "@mui/icons-material"
 import {
   Box,
   Button,
@@ -96,7 +92,7 @@ export function Filter() {
               }}>
               <Button
                 variant={filter.onlyFavorites ? "outlined" : "contained"}
-                endIcon={<HeartBrokenRounded />}
+                endIcon={<HeartBroken />}
                 onClick={() =>
                   filter.onlyFavorites ? handleChangeOnlyFavorites() : null
                 }>
@@ -105,7 +101,7 @@ export function Filter() {
 
               <Button
                 variant={filter.onlyFavorites ? "contained" : "outlined"}
-                startIcon={<FavoriteRounded />}
+                startIcon={<Favorite />}
                 onClick={() =>
                   filter.onlyFavorites ? null : handleChangeOnlyFavorites()
                 }>

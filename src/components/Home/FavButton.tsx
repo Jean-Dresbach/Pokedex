@@ -1,4 +1,4 @@
-import { FavoriteBorder, FavoriteRounded } from "@mui/icons-material"
+import { Favorite, FavoriteBorder } from "@mui/icons-material"
 import { IconButton, useTheme } from "@mui/material"
 import {
   addToFavorites,
@@ -38,7 +38,7 @@ export function FavButton({ name, url, havePadding }: FavButtonProps) {
       sx={{ zIndex: 1, padding: havePadding ? "" : 0 }}
       onClick={handleToggleFavPokemon}>
       {isOnFavList ? (
-        <FavoriteRounded color="primary" />
+        <Favorite color="primary" />
       ) : (
         <FavoriteBorder sx={{ color: colorOnTheme }} />
       )}

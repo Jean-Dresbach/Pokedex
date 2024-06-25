@@ -16,7 +16,6 @@ export function PokemonsList() {
         spacing={2}
         sx={{
           height: "max-content",
-          maxWidth: viewWidth ? "auto" : 250,
           mt: 3
         }}>
         {pokemons.length > 0 ? (

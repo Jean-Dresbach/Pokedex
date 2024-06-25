@@ -1,5 +1,10 @@
 import { SyntheticEvent, useState } from "react"
-import { Favorite, HeartBroken, TuneRounded } from "@mui/icons-material"
+import {
+  CloseRounded,
+  Favorite,
+  HeartBroken,
+  TuneRounded
+} from "@mui/icons-material"
 import {
   Box,
   Button,
@@ -88,7 +93,7 @@ export function Filter() {
                 alignItems: "center",
                 justifyContent: "center",
                 gap: 2,
-                py: 1.5
+                py: 2
               }}>
               <Button
                 variant={filter.onlyFavorites ? "outlined" : "contained"}
@@ -161,6 +166,24 @@ export function Filter() {
                 />
               ))}
             </Tabs>
+
+            <Divider sx={{ mt: 4, mb: 2 }} />
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "end",
+                py: 2,
+                pr: "10px"
+              }}>
+              <Button
+                onClick={toggleDrawer}
+                sx={{ px: 5 }}
+                variant="contained"
+                endIcon={<CloseRounded />}>
+                Close
+              </Button>
+            </Box>
           </Paper>
         </Slide>
       </Modal>

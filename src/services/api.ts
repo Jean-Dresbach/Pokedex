@@ -32,8 +32,6 @@ export const fetchPokemonsList = async (
           favorites
         )
 
-        console.log(filteredByFavorites)
-
         return filteredByFavorites
       } else {
         return response.results

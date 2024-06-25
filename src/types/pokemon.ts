@@ -144,7 +144,5 @@ export const filterArrayByAnother = (
 
   const filteredArray = array1.filter(item => namesInArray2.has(item.name)) // Filter the first array, keeping only objects whose name is in the set
 
-  console.log(filteredArray)
-
   return filteredArray
 }

@@ -1,6 +1,4 @@
 import {
-  Box,
-  Container,
   CssBaseline,
   ThemeProvider,
   createTheme,
@@ -8,9 +6,6 @@ import {
 } from "@mui/material"
 
 import { useAppSelector } from "./redux"
-import { BackGround } from "./components/BackGround"
-import { Footer } from "./components/Footer"
-import { Header } from "./components"
 import { Home } from "./pages/Home"
 
 export function Root() {
@@ -62,33 +57,7 @@ export function Root() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
 
-      <BackGround>
-        <Box
-          sx={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 3
-          }}>
-          <Container
-            maxWidth="md"
-            sx={{
-              padding: "0 !important",
-              overflow: "hidden",
-              overflowY: "auto",
-              backgroundColor: theme.palette.background.default,
-              display: "flex",
-              flexDirection: "column",
-              height: "100%"
-            }}>
-            <Header />
-            <Box sx={{ flexGrow: 1 }}>
-              <Home />
-            </Box>
-
-            <Footer />
-          </Container>
-        </Box>
-      </BackGround>
+      <Home />
     </ThemeProvider>
   )
 }

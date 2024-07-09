@@ -1,10 +1,13 @@
 import { useEffect } from "react"
-import { Box, Divider } from "@mui/material"
+import { Box, Container, useTheme } from "@mui/material"
 
-import { Filter, Pagination, PokemonsList } from "../components/Home"
-import { useAppDispatch, listPokemons, useAppSelector } from "../redux"
+import { listPokemons, useAppDispatch, useAppSelector } from "../redux"
+import { BackGround, Header, Main } from "../components"
+import { Footer } from "../components/Footer"
 
 export function Home() {
+  const theme = useTheme()
+
   const dispatch = useAppDispatch()
   const filter = useAppSelector(state => state.filter)
   const favorites = useAppSelector(state => state.favorites)
@@ -14,20 +17,31 @@ export function Home() {
   }, [dispatch, favorites, filter])
 
   return (
-    <Box
-      component="main"
-      sx={{
-        width: "100%",
-        height: "100%",
-        p: 3
-      }}>
-      <Pagination />
+    <BackGround>
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 3
+        }}>
+        <Container
+          maxWidth="md"
+          sx={{
+            padding: "0 !important",
+            overflow: "hidden",
+            overflowY: "auto",
+            backgroundColor: theme.palette.background.default,
+            display: "flex",
+            flexDirection: "column",
+            height: "100%"
+          }}>
+          <Header />
 
-      <Divider sx={{ my: 3 }} />
+          <Main />
 
-      <Filter />
-
-      <PokemonsList />
-    </Box>
+          <Footer />
+        </Container>
+      </Box>
+    </BackGround>
   )
 }

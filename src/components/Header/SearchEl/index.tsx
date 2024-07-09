@@ -14,9 +14,12 @@ import { Search as S } from "../../../types/search"
 import { fetchPokemonsList } from "../../../services/api"
 import { generationsData } from "../../../types/filter"
 import { MenuItemEl } from "./MenuItemEl"
+import { useAppSelector } from "../../../redux"
 
 export function SearchEl() {
   const theme = useTheme()
+
+  const favorites = useAppSelector(state => state.favorites)
 
   const timeoutRef = useRef<number | null>(null)
   const boxRef = useRef<HTMLDivElement | null>(null)
@@ -31,17 +34,20 @@ export function SearchEl() {
 
   useEffect(() => {
     const fetchPokemonsListData = async () => {
-      const result = await fetchPokemonsList({
-        type: "all",
-        generation: generationsData[0],
-        onlyFavorites: false
-      })
+      const result = await fetchPokemonsList(
+        {
+          type: "all",
+          generation: generationsData[0],
+          onlyFavorites: false
+        },
+        favorites
+      )
 
       setSearch(prev => ({ ...prev, pokemonsList: result }))
     }
 
     fetchPokemonsListData()
-  }, [])
+  }, [favorites])
 
   const handleFocus = () => {
     setSearch(prev => ({ ...prev, color: theme.palette.primary.main }))

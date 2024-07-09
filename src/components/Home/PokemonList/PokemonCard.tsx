@@ -97,12 +97,16 @@ export function PokemonCard({ url }: PokemonCardProps) {
             borderColor: theme.palette.primary.main
           }
         }}>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between"
+          }}>
           <Typography
             sx={{
               fontWeight: 600,
               textAlign: "center",
-              flexGrow: 1,
               color: theme.palette.mode === "dark" ? "black" : "white"
             }}>
             {pokemonData.species.name}

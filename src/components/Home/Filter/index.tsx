@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from "react"
+import { SyntheticEvent, useState, useEffect } from "react"
 import {
   CloseRounded,
   Favorite,
@@ -35,28 +35,55 @@ export function Filter() {
   const filter = useAppSelector(state => state.filter)
 
   const [open, setOpen] = useState(false)
+  const [localOnlyFavorites, setLocalOnlyFavorites] = useState(
+    filter.onlyFavorites
+  )
+  const [localGeneration, setLocalGeneration] = useState(filter.generation.name)
+  const [localType, setLocalType] = useState(filter.type)
 
   const toggleDrawer = () => {
     setOpen(prev => !prev)
   }
 
   const handleChangeOnlyFavorites = () => {
-    dispatch(toggleOnlyFavorites())
-    dispatch(setCurrentPage(1))
+    setLocalOnlyFavorites(prev => !prev)
   }
 
   const handleGenChange = (
     _: SyntheticEvent<Element, Event>,
     value: Generations
   ) => {
-    dispatch(setGeneration(value))
-    dispatch(setCurrentPage(1))
+    setLocalGeneration(value)
   }
 
   const handleTypeChange = (_: SyntheticEvent<Element, Event>, value: Type) => {
-    dispatch(setType(value))
-    dispatch(setCurrentPage(1))
+    setLocalType(value)
   }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (localOnlyFavorites !== filter.onlyFavorites) {
+        dispatch(toggleOnlyFavorites())
+      }
+      if (localGeneration !== filter.generation.name) {
+        dispatch(setGeneration(localGeneration))
+      }
+      if (localType !== filter.type) {
+        dispatch(setType(localType))
+      }
+      dispatch(setCurrentPage(1))
+    }, 2000)
+
+    return () => clearTimeout(timer)
+  }, [
+    localOnlyFavorites,
+    localGeneration,
+    localType,
+    dispatch,
+    filter.onlyFavorites,
+    filter.generation.name,
+    filter.type
+  ])
 
   return (
     <>
@@ -96,20 +123,16 @@ export function Filter() {
                 py: 2
               }}>
               <Button
-                variant={filter.onlyFavorites ? "outlined" : "contained"}
+                variant={localOnlyFavorites ? "outlined" : "contained"}
                 endIcon={<HeartBroken />}
-                onClick={() =>
-                  filter.onlyFavorites ? handleChangeOnlyFavorites() : null
-                }>
+                onClick={handleChangeOnlyFavorites}>
                 See All
               </Button>
 
               <Button
-                variant={filter.onlyFavorites ? "contained" : "outlined"}
+                variant={localOnlyFavorites ? "contained" : "outlined"}
                 startIcon={<Favorite />}
-                onClick={() =>
-                  filter.onlyFavorites ? null : handleChangeOnlyFavorites()
-                }>
+                onClick={handleChangeOnlyFavorites}>
                 Only Favorites
               </Button>
             </Box>
@@ -119,7 +142,7 @@ export function Filter() {
             </Divider>
 
             <Tabs
-              value={filter.generation.name}
+              value={localGeneration}
               variant="scrollable"
               onChange={handleGenChange}
               scrollButtons
@@ -146,7 +169,7 @@ export function Filter() {
             </Divider>
 
             <Tabs
-              value={filter.type}
+              value={localType}
               variant="scrollable"
               onChange={handleTypeChange}
               sx={{ marginBottom: 2 }}

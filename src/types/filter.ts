@@ -11,7 +11,7 @@ interface GenerationInfo {
   }
 }
 
-type TypeWithAll = Type | "all"
+export type TypeWithAll = Type | "all"
 
 export const pokemonTypesData: TypeWithAll[] = [
   "psychic",

@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
-import { Filter, generationsData } from "../../types/filter"
-import { Type, Generations } from "../../types/pokemon"
+import { Filter, generationsData, TypeWithAll } from "../../types/filter"
+import { Generations } from "../../types/pokemon"
 
 const initialState: Filter = {
   type: "all",
@@ -13,7 +13,7 @@ export const filterSlice = createSlice({
   name: "filter",
   initialState,
   reducers: {
-    setType(state, action: PayloadAction<Type>) {
+    setType(state, action: PayloadAction<TypeWithAll>) {
       return { ...state, type: action.payload }
     },
     setGeneration(state, action: PayloadAction<Generations>) {

@@ -72,7 +72,7 @@ export function Filter() {
         dispatch(setType(localType))
       }
       dispatch(setCurrentPage(1))
-    }, 2000)
+    }, 1500)
 
     return () => clearTimeout(timer)
   }, [

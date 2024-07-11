@@ -60,11 +60,12 @@ export function DetailedInfo({ pokemonData, showShiny }: DetailedInfoProps) {
         gap: 3
       }}>
       <Box sx={{ wordBreak: "keep-all", textAlign: "justify", mb: 3 }}>
-        <Typography sx={{ fontStyle: "italic", textAlign: "justify" }}>
+        <Typography
+          sx={{ fontStyle: "italic", textAlign: "justify", fontSize: 20 }}>
           "{flavorText.text}"
         </Typography>
         <Typography sx={{ fontWeight: 600, textAlign: "end" }}>
-          {` (Pokémon ${capitalizeWord(flavorText.versionName)})`}
+          {`Pokémon ${capitalizeWord(flavorText.versionName)}`}
         </Typography>
       </Box>
       <InfoCards

@@ -4,10 +4,10 @@
 
 ### Preview
 
-![Home page display 1](./assets/preview/Home-Page-Display-1.jpeg)
-![Home page display 2](./assets/preview/Home-Page-Display-2.jpeg)
-![Pokemon Details Display 1](./assets/preview/Pokemon-Details-Display-1.jpeg)
-![Pokemon Details Display 2](./assets/preview/Pokemon-Details-Display-2.jpeg)
+![Home page display 1](./src/assets/preview/Home-Page-Display-1.jpeg)
+![Home page display 2](./src/assets/preview/Home-Page-Display-2.jpeg)
+![Pokemon Details Display 1](./src/assets/preview/Pokemon-Details-Display-1.jpeg)
+![Pokemon Details Display 2](./src/assets/preview/Pokemon-Details-Display-2.jpeg)
 
 </div>
 

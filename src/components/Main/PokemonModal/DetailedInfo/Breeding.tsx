@@ -1,12 +1,4 @@
-import {
-  Box,
-  Tooltip,
-  TooltipProps,
-  Typography,
-  styled,
-  tooltipClasses,
-  useTheme
-} from "@mui/material"
+import { Box, Typography, useTheme } from "@mui/material"
 import { PokemonSpecie } from "../../../../types/pokemon"
 import {
   FemaleRounded,
@@ -14,14 +6,7 @@ import {
   MaleRounded
 } from "@mui/icons-material"
 import { capitalizeWord } from "../../../../utilities/captalizeWord"
-
-const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
-  <Tooltip {...props} classes={{ popper: className }} />
-))({
-  [`& .${tooltipClasses.tooltip}`]: {
-    maxWidth: 150
-  }
-})
+import { CustomTooltip } from "./CustomTooltip"
 
 interface BreedingProps {
   pokemonSpecieData: PokemonSpecie
@@ -29,6 +14,7 @@ interface BreedingProps {
 
 export function Breeding({ pokemonSpecieData }: BreedingProps) {
   const theme = useTheme()
+
   return (
     <Box>
       <Typography variant="h6" gutterBottom>
@@ -47,12 +33,15 @@ export function Breeding({ pokemonSpecieData }: BreedingProps) {
           <Box sx={{ display: "flex", gap: 1 }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <MaleRounded color="info" />
+
               <Typography>
                 {(((8 - pokemonSpecieData.gender_rate) * 100) / 8).toFixed(2)}%
               </Typography>
             </Box>
+
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <FemaleRounded sx={{ color: "pink" }} />
+
               <Typography>
                 {((pokemonSpecieData.gender_rate * 100) / 8).toFixed(2)}%
               </Typography>
@@ -83,12 +72,9 @@ export function Breeding({ pokemonSpecieData }: BreedingProps) {
           fontWeight: 600
         }}>
         Hatch counter
-        <CustomWidthTooltip
-          title="Initial hatch counter: one must walk Y × (hatch_counter + 1) steps before this Pokémon's egg hatches, unless utilizing bonuses like Flame Body's. Y varies per generation."
-          placement="right"
-          arrow>
+        <CustomTooltip title="Initial hatch counter: one must walk Y × (hatch_counter + 1) steps before this Pokémon's egg hatches, unless utilizing bonuses like Flame Body's. Y varies per generation.">
           <HelpOutlineRounded sx={{ ml: 1 }} />
-        </CustomWidthTooltip>
+        </CustomTooltip>
         <Typography
           component="span"
           sx={{ ml: 2, color: theme.palette.text.primary }}>

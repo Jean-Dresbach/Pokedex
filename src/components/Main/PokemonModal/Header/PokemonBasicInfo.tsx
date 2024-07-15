@@ -1,5 +1,5 @@
 import { Box, Button, Typography, useTheme } from "@mui/material"
-import { AutoAwesome, CircleOutlined } from "@mui/icons-material"
+import { Visibility } from "@mui/icons-material"
 
 import { Pokemon, Type, typeColor } from "../../../../types/pokemon"
 import { getTypeIcon } from "../../../../assets/pokemomTypeIcons"
@@ -90,14 +90,11 @@ export function PokemonBasicInfo({
           onClick={toggleShowShiny}
           variant="contained"
           sx={{
-            display: "flex",
-            alignItems: "center",
-            width: 133,
             borderRadius: "100vw",
-            boxShadow: "none",
+            minWidth: 110,
             color: !showShiny ? "orange" : "GrayText",
+            height: 32,
             fontSize: 12,
-            lineHeight: 0,
             fontWeight: 600,
             zIndex: 1,
             bgcolor: colorOnTheme,
@@ -105,15 +102,13 @@ export function PokemonBasicInfo({
               bgcolor: colorOnTheme
             }
           }}
-          endIcon={
-            !showShiny ? (
-              <AutoAwesome fontSize="small" sx={{ color: "orange" }} />
-            ) : (
-              <CircleOutlined fontSize="small" sx={{ color: "GrayText" }} />
-            )
+          startIcon={
+            <Visibility
+              fontSize="small"
+              sx={{ color: !showShiny ? "orange" : "GrayText" }}
+            />
           }>
-          see
-          {!showShiny ? " shiny" : " default"}
+          {!showShiny ? "shiny" : "default"}
         </Button>
       </Box>
     </>

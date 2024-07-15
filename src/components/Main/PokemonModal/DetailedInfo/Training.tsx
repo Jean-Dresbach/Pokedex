@@ -1,23 +1,8 @@
-import {
-  Box,
-  Tooltip,
-  TooltipProps,
-  Typography,
-  styled,
-  tooltipClasses,
-  useTheme
-} from "@mui/material"
+import { Box, Typography, useTheme } from "@mui/material"
 import { Pokemon, PokemonSpecie } from "../../../../types/pokemon"
 import { capitalizeWord } from "../../../../utilities/captalizeWord"
 import { HelpOutlineRounded } from "@mui/icons-material"
-
-const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
-  <Tooltip {...props} classes={{ popper: className }} />
-))({
-  [`& .${tooltipClasses.tooltip}`]: {
-    maxWidth: 150
-  }
-})
+import { CustomTooltip } from "./CustomTooltip"
 
 interface BreedingProps {
   pokemonData: Pokemon
@@ -41,12 +26,9 @@ export function Training({ pokemonSpecieData, pokemonData }: BreedingProps) {
           mr: 2
         }}>
         Catch Rate
-        <CustomWidthTooltip
-          title="The base capture rate, up to 255. The higher the number, the easier the catch."
-          placement="right"
-          arrow>
+        <CustomTooltip title="The base capture rate, up to 255. The higher the number, the easier the catch.">
           <HelpOutlineRounded sx={{ ml: 1 }} />
-        </CustomWidthTooltip>
+        </CustomTooltip>
         <Typography
           component="span"
           sx={{ ml: 2, color: theme.palette.text.primary }}>
@@ -62,12 +44,9 @@ export function Training({ pokemonSpecieData, pokemonData }: BreedingProps) {
           fontWeight: 600
         }}>
         Base Happiness
-        <CustomWidthTooltip
-          title="The happiness when caught by a normal Pokéball, up to 255. The higher the number, the happier the Pokémon."
-          placement="right"
-          arrow>
+        <CustomTooltip title="The happiness when caught by a normal Pokéball, up to 255. The higher the number, the happier the Pokémon.">
           <HelpOutlineRounded sx={{ ml: 1 }} />
-        </CustomWidthTooltip>
+        </CustomTooltip>
         <Typography
           component="span"
           sx={{ ml: 2, color: theme.palette.text.primary }}>
@@ -83,12 +62,9 @@ export function Training({ pokemonSpecieData, pokemonData }: BreedingProps) {
           fontWeight: 600
         }}>
         Base Experience
-        <CustomWidthTooltip
-          title="The base experience gained for defeating this Pokémon."
-          placement="right"
-          arrow>
+        <CustomTooltip title="The base experience gained for defeating this Pokémon.">
           <HelpOutlineRounded sx={{ ml: 1 }} />
-        </CustomWidthTooltip>
+        </CustomTooltip>
         <Typography
           component="span"
           sx={{ ml: 2, color: theme.palette.text.primary }}>

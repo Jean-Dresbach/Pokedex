@@ -27,7 +27,9 @@ export function Pagination() {
 
   useEffect(() => {
     const pokemonArray = filter.onlyFavorites ? favorites : pokemons
-    const totalPages = Math.ceil(pokemonArray.length / pagination.perPage)
+    const totalPages = Math.ceil(
+      pokemonArray.length === 0 ? 1 : pokemonArray.length / pagination.perPage
+    )
 
     dispatch(setTotalPages(totalPages))
     setPokemonArray(pokemonArray)
@@ -76,7 +78,11 @@ export function Pagination() {
         <IconButton
           disabled={
             pagination.currentPage ===
-            Math.ceil(pokemonArray.length / pagination.perPage)
+            Math.ceil(
+              pokemonArray.length === 0
+                ? 1
+                : pokemonArray.length / pagination.perPage
+            )
           }
           onClick={handleNext}>
           <EastRounded />
